@@ -104,7 +104,7 @@ bios_partitioning()
 
     mount "${DISK}1" /mnt
 
-    mkdir /mnt/hostrun
+    mkdir -p /mnt/hostrun
 
     mount --bind /run /mnt/hostrun
 }
@@ -156,8 +156,6 @@ crypt_setup()
 
 system_install()
 {
-    DEVID=$(blkid -s UUID -o value "${DISK}2")
-
     pacstrap /mnt base base-devel
 
     genfstab -pU /mnt >> /mnt/etc/fstab
@@ -182,11 +180,11 @@ system_install()
 
 bootloader_bios()
 {
-    arch-chroot /mnt mkdir /run/lvm
+    mkdir -p /mnt/run/lvm
 
-    arch-chroot /mnt mount --bind /hostrun/lvm /run/lvm
+    mount --bind /mnt/hostrun/lvm /mnt/run/lvm
 
-    devid=$(blkid -s UUID -o value /dev/sd"$drive"2)
+    devid=$(blkid -s UUID -o value "${DISK}2")
 
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
@@ -195,6 +193,8 @@ bootloader_bios()
 
 bootloader_uefi()
 {
+    devid=$(blkid -s UUID -o value "${DISK}2")
+
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -204,11 +204,11 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
-    arch-chroot /mnt mkdir /run/lvm
+    mkdir -p /mnt/run/lvm
 
-    arch-chroot /mnt mount --bind /hostrun/lvm /run/lvm
+    mount --bind /mnt/hostrun/lvm /mnt/run/lvm
 
-    devid=$(blkid -s UUID -o value /dev/sd"$drive"2)
+    devid=$(blkid -s UUID -o value "${DISK}2")
 
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
@@ -218,6 +218,8 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
+    devid=$(blkid -s UUID -o value "${DISK}2")
+
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
