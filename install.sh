@@ -13,16 +13,6 @@ prompt()
     done
 }
 
-set_hostname()
-{
-    while [ 1 ]; do
-            read -p "Preferred hostname: " HOST_NAME;
-            if [ "$HOST_NAME" ]; then
-                    break;
-            fi
-    done
-}
-
 setup_disk() 
 {
     echo "Available disks:"
@@ -66,6 +56,16 @@ set_swap()
     done
 }
 
+set_hostname()
+{
+    while [ 1 ]; do
+            read -p "Preferred hostname: " HOST_NAME;
+            if [ "$HOST_NAME" ]; then
+                    break;
+            fi
+    done
+}
+
 bios_cryptpartitioning() 
 {
     timedatectl set-ntp true
@@ -103,10 +103,6 @@ bios_partitioning()
     swapon "${DISK}2"
 
     mount "${DISK}1" /mnt
-
-    mkdir -p /mnt/hostrun
-
-    mount --bind /run /mnt/hostrun
 }
 
 uefi_partitioning()
@@ -219,24 +215,21 @@ cryptloader_uefi()
 laptop_utilities()
 {
     arch-chroot /mnt pacman -S iw wpa_supplicant dialog --noconfirm
-
-    umount -R /mnt
-    shutdown -r now
 }
 
 desktop_utilities()
 {
     arch-chroot /mnt pacman -S nvidia nvidia-libgl xf86-input-libinput --noconfirm
-    
-    umount -R /mnt
-    shutdown -r now
 }
 
 virtualbox_utilities()
 {
     arch-chroot /mnt pacman -S virtualbox-guest-modules-arch --noconfirm
     arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+}
 
+unmount_shutdown()
+{
     umount -R /mnt
     shutdown -r now
 }
@@ -249,10 +242,10 @@ install_type()
             read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " SOPT1;
             read -p "Do you want to encrypt your drive? (y,n): " SOPT2;
             if [ "$SOPT2" == 'y' ]; then
-                set_hostname
                 setup_disk
                 grub_"$MODE"
                 crypt_swap
+                set_hostname
                 "$MODE"_cryptpartitioning
                 crypt_setup
                 system_install
@@ -272,13 +265,15 @@ install_type()
 
             if [ "$SOPT1" == '1' ]; then
                     laptop_utilities
+                    unmount_shutdown
             elif [ "$SOPT1" == '2' ]; then
                     desktop_utilities
+                    unmount_shutdown
             elif [ "$SOPT1" == '3' ]; then
                     virtualbox_utilities
+                    unmount_shutdown
             else
-                printf "Invalid input! Please try again.";
-                break;
+                printf "Invalid input! Utilities have not been installed.";
             fi
     done
 }
