@@ -156,6 +156,8 @@ crypt_setup()
 
 system_install()
 {
+    devid=$(blkid -s UUID -o value "${DISK}2")
+
     pacstrap /mnt base base-devel
 
     genfstab -pU /mnt >> /mnt/etc/fstab
@@ -184,8 +186,6 @@ bootloader_bios()
 
     mount --bind /mnt/hostrun/lvm /mnt/run/lvm
 
-    devid=$(blkid -s UUID -o value "${DISK}2")
-
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -204,11 +204,12 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
-    mkdir -p /mnt/run/lvm
+    #sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /etc/lvm/lvm.conf
 
-    mount --bind /mnt/hostrun/lvm /mnt/run/lvm
-
-    devid=$(blkid -s UUID -o value "${DISK}2")
+    systemctl enable lvm2-lvmetad.service
+    systemctl enable lvm2-lvmetad.socket
+    systemctl start lvm2-lvmetad.service
+    systemctl start lvm2-lvmetad.socket
 
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
