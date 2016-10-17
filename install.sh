@@ -95,7 +95,7 @@ bios_partitioning()
     timedatectl set-ntp true
     
     parted -s --align optimal -- "$DISK" mklabel msdos \
-        mkpart primary linux-swap 1MiB "${SWAP}GB"
+        mkpart primary linux-swap 1MiB "${SWAP}GB" \
         mkpart primary ext4 "${SWAP}GB" 100%
 
     mkfs.ext4 -F "${DISK}2"
