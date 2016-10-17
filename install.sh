@@ -17,7 +17,7 @@ setup_disk()
 {
     echo "Available disks:"
     lsblk -dn -e 2,7,11 -p -o NAME,SIZE | column
-    prompt "Install drive: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "Installation drive: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 
 }
 
