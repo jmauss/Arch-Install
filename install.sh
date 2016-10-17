@@ -235,6 +235,8 @@ install_arch()
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
 
     while [ 1 ]; do
+            echo " Arch Linux Install Script"
+            echo "---------------------------"
             read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
             if [ "$CRYPT" == 'y' ]; then
                 setup_disk
@@ -281,14 +283,3 @@ system_type()
 
 install_arch
 system_type
-
-
-echo '[H[2J
-        [1;36m,[1;36m                       _     _ _                      [1;30m| [36ms r
-       [1;36m/#\[1;36m        __ _ _ __ ___| |__ | (_)_ __  _   ___  __    [30m|
-      [1;36m/###\[1;36m      / _` | '__/ __| '_ \| | | '_ \| | | \ \/ /    [30m| [36mt
-     [1;36m/#####\[1;36m    | (_| | | | (__| | | | | | | | | |_| |>  <     [30m| [36md
-    [1;36m/##[0;36m,-,##\[1;36m    \__,_|_|  \___|_| |_|_|_|_| |_|\__,_/_/\_\    [1;30m|
-   [0;36m/##(   )##\                                                 [1;30m| [36mU
-  [0;36m/#.--   --.#\[1;37m  A simple, lightweight linux distribution.     [1;30m|
- [0;36m/`           `\[0m                                               [1;30m| [36ml [36mon [1;36mn [0m'
