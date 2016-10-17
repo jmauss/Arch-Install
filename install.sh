@@ -235,8 +235,6 @@ install_arch()
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
 
     while [ 1 ]; do
-            echo " Arch Linux Install Script"
-            echo "---------------------------"
             read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
             if [ "$CRYPT" == 'y' ]; then
                 setup_disk
@@ -282,6 +280,19 @@ system_type()
             fi
     done
 }
+
+echo "-----------------------------"
+echo "- Arch Linux Install Script -"
+echo "-----------------------------"
+
+if ping -c 1 google.com &> /dev/null
+then
+  echo Connected
+  install_arch
+  system_type
+else
+  echo "Not Connected" && dhcpcd && sleep 30s
+fi
 
 install_arch
 system_type
