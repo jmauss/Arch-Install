@@ -98,11 +98,11 @@ bios_partitioning()
         mkpart primary linux-swap 1MiB "${SWAP}GB"
         mkpart primary ext4 "${SWAP}GB" 100%
 
-    mkfs.ext4 -F "${DISK}1"
-    mkswap "${DISK}2"
-    swapon "${DISK}2"
+    mkfs.ext4 -F "${DISK}2"
+    mkswap "${DISK}1"
+    swapon "${DISK}1"
 
-    mount "${DISK}1" /mnt
+    mount "${DISK}2" /mnt
 }
 
 uefi_partitioning()
@@ -221,7 +221,18 @@ desktop_utilities()
 virtualbox_utilities()
 {
     arch-chroot /mnt pacman -S virtualbox-guest-modules-arch --noconfirm
-    arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+    while [ 1 ]; do
+            read -p "Will you need X support? (y,n): " VMX;
+            if [ "$VMX" == 'y' ]; then
+                    arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
+                    break
+            elif [ "$VMX" == 'n' ]; then
+                    arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+                    break
+            else
+                printf "Invalid input!\n";
+            fi
+    done
 }
 
 unmount_shutdown()
@@ -246,15 +257,15 @@ install_arch()
                 system_install
                 cryptloader_"$MODE"
                 break
-#            elif [ "$CRYPT" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                break
+            elif [ "$CRYPT" == 'n' ]; then
+                setup_disk
+                grub_"$MODE"
+                set_swap
+                set_hostname
+                "$MODE"_partitioning
+                system_install
+                bootloader_"$MODE"
+                break
             else
                 printf "Invalid input! Please try again.";
                 break;
@@ -285,8 +296,7 @@ echo "-----------------------------"
 echo "- Arch Linux Install Script -"
 echo "-----------------------------"
 
-if ping -c 1 google.com &> /dev/null
-then
+if ping -c 1 google.com &> /dev/null; then
   echo Connected
   install_arch
   system_type
