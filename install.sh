@@ -17,13 +17,13 @@ setup_disk()
 {
     echo "Available disks:"
     lsblk -dn -e 2,7,11 -p -o NAME,SIZE | column
-    prompt "Choose the disk you would like to install Arch to: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "Install drive: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 
 }
 
 grub_bios()
 {
-    prompt "Choose the disk to install GRUB to: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "GRUB drive: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 }
 
 grub_uefi()
