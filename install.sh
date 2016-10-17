@@ -8,7 +8,7 @@ prompt()
             eval "$2=$VAR"
             break
         else
-            printf "Invalid input! Please try again: "
+            printf "Invalid input! Please try again\n"
         fi
     done
 }
@@ -41,7 +41,7 @@ crypt_swap()
         if [ "$MAX" -gt "$(echo "$SWAPSIZE" | numfmt --from=iec)" ] && [ "$(echo "$SWAPSIZE" | numfmt --from=iec)" -gt 0 ] ; then
             break
         else
-            printf "Invalid input! Please try again: "
+            printf "Invalid input! Please try again\n"
         fi
     done
 }
@@ -230,7 +230,7 @@ virtualbox_utilities()
                     arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
                     break
             else
-                printf "Invalid input!\n";
+                printf "Invalid input! Please try again\n";
             fi
     done
 }
@@ -267,7 +267,7 @@ install_arch()
                 bootloader_"$MODE"
                 break
             else
-                printf "Invalid input! Please try again.";
+                printf "Invalid input! Please try again\n";
                 break;
             fi
     done
@@ -287,7 +287,7 @@ system_type()
                     virtualbox_utilities
                     unmount_shutdown
             else
-                printf "Invalid input! Please try again.\n";
+                printf "Invalid input! Please try again\n";
             fi
     done
 }
