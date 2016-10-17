@@ -247,6 +247,7 @@ install_arch()
                 crypt_setup
                 system_install
                 cryptloader_"$MODE"
+                break
 #            elif [ "$CRYPT" == 'n' ]; then
 #                set_hostname
 #                setup_disk
@@ -255,6 +256,7 @@ install_arch()
 #                "$MODE"_partitioning
 #                system_install
 #                bootloader_"$MODE"
+#                break
             else
                 printf "Invalid input! Please try again.";
                 break;
