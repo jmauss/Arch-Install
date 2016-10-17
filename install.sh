@@ -31,6 +31,16 @@ setup_disk()
 
 }
 
+grub_bios()
+{
+    prompt "Choose the disk for GRUB: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+}
+
+grub_uefi()
+{
+    echo "UEFI will use bootctl"
+}
+
 crypt_swap()
 {
     MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
@@ -54,16 +64,6 @@ set_swap()
                     break;
             fi
     done
-}
-
-grub_bios()
-{
-    prompt "Choose the disk for GRUB: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
-}
-
-grub_uefi()
-{
-    echo "UEFI will use bootctl"
 }
 
 bios_cryptpartitioning() 
@@ -179,10 +179,6 @@ system_install()
 
 bootloader_bios()
 {
-    mkdir -p /mnt/run/lvm
-
-    mount --bind /mnt/hostrun/lvm /mnt/run/lvm
-
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -255,8 +251,8 @@ install_type()
             if [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'y' ]; then
                 set_hostname
                 setup_disk
-                crypt_swap
                 grub_"$MODE"
+                crypt_swap
                 "$MODE"_cryptpartitioning
                 crypt_setup
                 system_install
@@ -265,8 +261,8 @@ install_type()
 #            elif [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'n' ]; then
 #                set_hostname
 #                setup_disk
-#                set_swap
 #                grub_"$MODE"
+#                set_swap
 #                "$MODE"_partitioning
 #                system_install
 #                bootloader_"$MODE"
@@ -274,8 +270,8 @@ install_type()
             elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'y' ]; then
                 set_hostname
                 setup_disk
-                crypt_swap
                 grub_"$MODE"
+                crypt_swap
                 "$MODE"_cryptpartitioning
                 crypt_setup
                 system_install
@@ -284,8 +280,8 @@ install_type()
 #            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
 #                set_hostname
 #                setup_disk
-#                set_swap
 #                grub_"$MODE"
+#                set_swap
 #                "$MODE"_partitioning
 #                system_install
 #                bootloader_"$MODE"
@@ -293,8 +289,8 @@ install_type()
             elif [ "$SOPT1" == 3 ] && [ "$SOPT2" == 'y' ]; then
                 set_hostname
                 setup_disk
-                crypt_swap
                 grub_"$MODE"
+                crypt_swap
                 "$MODE"_cryptpartitioning
                 crypt_setup
                 system_install
@@ -303,8 +299,8 @@ install_type()
 #            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
 #                set_hostname
 #                setup_disk
-#                set_swap
 #                grub_"$MODE"
+#                set_swap
 #                "$MODE"_partitioning
 #                system_install
 #                bootloader_"$MODE"
