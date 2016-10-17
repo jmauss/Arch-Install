@@ -167,6 +167,8 @@ system_install()
     sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
     sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
 
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
+
     sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 
@@ -191,8 +193,6 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
-    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVID:lvm\"#" /mnt/etc/default/grub
@@ -287,7 +287,7 @@ system_type()
                     virtualbox_utilities
                     unmount_shutdown
             else
-                printf "Invalid input! Utilities have not been installed.\n";
+                printf "Invalid input! Please try again.\n";
             fi
     done
 }
