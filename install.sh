@@ -248,7 +248,7 @@ install_type()
     while [ 1 ]; do
             read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " SOPT1;
             read -p "Do you want to encrypt your drive? (y,n): " SOPT2;
-            if [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'y' ]; then
+            if [ "$SOPT2" == 'y' ]; then
                 set_hostname
                 setup_disk
                 grub_"$MODE"
@@ -257,8 +257,7 @@ install_type()
                 crypt_setup
                 system_install
                 cryptloader_"$MODE"
-                laptop_utilities
-#            elif [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'n' ]; then
+#            elif [ "$SOPT2" == 'n' ]; then
 #                set_hostname
 #                setup_disk
 #                grub_"$MODE"
@@ -266,45 +265,17 @@ install_type()
 #                "$MODE"_partitioning
 #                system_install
 #                bootloader_"$MODE"
-#                laptop_utilities
-            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'y' ]; then
-                set_hostname
-                setup_disk
-                grub_"$MODE"
-                crypt_swap
-                "$MODE"_cryptpartitioning
-                crypt_setup
-                system_install
-                cryptloader_"$MODE"
-                desktop_utilities
-#            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                desktop_utilities
-            elif [ "$SOPT1" == 3 ] && [ "$SOPT2" == 'y' ]; then
-                set_hostname
-                setup_disk
-                grub_"$MODE"
-                crypt_swap
-                "$MODE"_cryptpartitioning
-                crypt_setup
-                system_install
-                cryptloader_"$MODE"
-                virtualbox_utilities
-#            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                virtualbox_utilities
+            else
+                printf "Invalid input! Please try again.";
+                break;
+            fi
+
+            if [ "$SOPT1" == '1' ]; then
+                    laptop_utilities
+            elif [ "$SOPT1" == '2' ]; then
+                    desktop_utilities
+            elif [ "$SOPT1" == '3' ]; then
+                    virtualbox_utilities
             else
                 printf "Invalid input! Please try again.";
                 break;
