@@ -8,18 +8,8 @@ prompt()
             eval "$2=$VAR"
             break
         else
-            printf "Invalid input! Please try again: "
+            printf "Invalid input! Please try again\n"
         fi
-    done
-}
-
-set_hostname()
-{
-    while [ 1 ]; do
-            read -p "Preferred hostname: " HOST_NAME;
-            if [ "$HOST_NAME" ]; then
-                    break;
-            fi
     done
 }
 
@@ -27,18 +17,18 @@ setup_disk()
 {
     echo "Available disks:"
     lsblk -dn -e 2,7,11 -p -o NAME,SIZE | column
-    prompt "Choose the disk: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "Installation drive: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 
 }
 
 grub_bios()
 {
-    prompt "Choose the disk for GRUB: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "GRUB drive: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 }
 
 grub_uefi()
 {
-    echo "UEFI will use bootctl"
+    echo "UEFI will use bootctl. Continuing install..."
 }
 
 crypt_swap()
@@ -51,7 +41,7 @@ crypt_swap()
         if [ "$MAX" -gt "$(echo "$SWAPSIZE" | numfmt --from=iec)" ] && [ "$(echo "$SWAPSIZE" | numfmt --from=iec)" -gt 0 ] ; then
             break
         else
-            printf "Invalid input! Please try again: "
+            printf "Invalid input! Please try again\n"
         fi
     done
 }
@@ -61,6 +51,16 @@ set_swap()
     while [ 1 ]; do
             read -p "Swap size (in GB): " SWAP;
             if [ $SWAP ]; then
+                    break;
+            fi
+    done
+}
+
+set_hostname()
+{
+    while [ 1 ]; do
+            read -p "Preferred hostname: " HOST_NAME;
+            if [ "$HOST_NAME" ]; then
                     break;
             fi
     done
@@ -95,18 +95,14 @@ bios_partitioning()
     timedatectl set-ntp true
     
     parted -s --align optimal -- "$DISK" mklabel msdos \
-        mkpart primary linux-swap 1MiB "${SWAP}GB"
+        mkpart primary linux-swap 1MiB "${SWAP}GB" \
         mkpart primary ext4 "${SWAP}GB" 100%
 
-    mkfs.ext4 -F "${DISK}1"
-    mkswap "${DISK}2"
-    swapon "${DISK}2"
+    mkfs.ext4 -F "${DISK}2"
+    mkswap "${DISK}1"
+    swapon "${DISK}1"
 
-    mount "${DISK}1" /mnt
-
-    mkdir -p /mnt/hostrun
-
-    mount --bind /run /mnt/hostrun
+    mount "${DISK}2" /mnt
 }
 
 uefi_partitioning()
@@ -171,6 +167,8 @@ system_install()
     sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
     sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
 
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
+
     sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 
@@ -186,8 +184,6 @@ bootloader_bios()
 
 bootloader_uefi()
 {
-    devid=$(blkid -s UUID -o value "${DISK}2")
-
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -197,8 +193,6 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
-    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVID:lvm\"#" /mnt/etc/default/grub
@@ -207,8 +201,6 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
-    devid=$(blkid -s UUID -o value "${DISK}2")
-
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -219,97 +211,98 @@ cryptloader_uefi()
 laptop_utilities()
 {
     arch-chroot /mnt pacman -S iw wpa_supplicant dialog --noconfirm
-
-    umount -R /mnt
-    shutdown -r now
 }
 
 desktop_utilities()
 {
     arch-chroot /mnt pacman -S nvidia nvidia-libgl xf86-input-libinput --noconfirm
-    
-    umount -R /mnt
-    shutdown -r now
 }
 
 virtualbox_utilities()
 {
     arch-chroot /mnt pacman -S virtualbox-guest-modules-arch --noconfirm
-    arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+    while [ 1 ]; do
+            read -p "Will you need X support? (y,n): " VMX;
+            if [ "$VMX" == 'y' ]; then
+                    arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
+                    break
+            elif [ "$VMX" == 'n' ]; then
+                    arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+                    break
+            else
+                printf "Invalid input! Please try again\n";
+            fi
+    done
+}
 
+unmount_shutdown()
+{
     umount -R /mnt
     shutdown -r now
 }
 
-install_type()
+install_arch()
 {
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
 
     while [ 1 ]; do
-            read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " SOPT1;
-            read -p "Do you want to encrypt your drive? (y,n): " SOPT2;
-            if [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'y' ]; then
-                set_hostname
+            read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
+            if [ "$CRYPT" == 'y' ]; then
                 setup_disk
                 grub_"$MODE"
                 crypt_swap
+                set_hostname
                 "$MODE"_cryptpartitioning
                 crypt_setup
                 system_install
                 cryptloader_"$MODE"
-                laptop_utilities
-#            elif [ "$SOPT1" == 1 ] && [ "$SOPT2" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                laptop_utilities
-            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'y' ]; then
-                set_hostname
+                break
+            elif [ "$CRYPT" == 'n' ]; then
                 setup_disk
                 grub_"$MODE"
-                crypt_swap
-                "$MODE"_cryptpartitioning
-                crypt_setup
-                system_install
-                cryptloader_"$MODE"
-                desktop_utilities
-#            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                desktop_utilities
-            elif [ "$SOPT1" == 3 ] && [ "$SOPT2" == 'y' ]; then
+                set_swap
                 set_hostname
-                setup_disk
-                grub_"$MODE"
-                crypt_swap
-                "$MODE"_cryptpartitioning
-                crypt_setup
+                "$MODE"_partitioning
                 system_install
-                cryptloader_"$MODE"
-                virtualbox_utilities
-#            elif [ "$SOPT1" == 2 ] && [ "$SOPT2" == 'n' ]; then
-#                set_hostname
-#                setup_disk
-#                grub_"$MODE"
-#                set_swap
-#                "$MODE"_partitioning
-#                system_install
-#                bootloader_"$MODE"
-#                virtualbox_utilities
+                bootloader_"$MODE"
+                break
             else
-                printf "Invalid input! Please try again.";
+                printf "Invalid input! Please try again\n";
                 break;
             fi
     done
 }
 
-install_type
+system_type()
+{
+    while [ 1 ]; do
+            read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
+            if [ "$STYPE" == '1' ]; then
+                    laptop_utilities
+                    unmount_shutdown
+            elif [ "$STYPE" == '2' ]; then
+                    desktop_utilities
+                    unmount_shutdown
+            elif [ "$STYPE" == '3' ]; then
+                    virtualbox_utilities
+                    unmount_shutdown
+            else
+                printf "Invalid input! Please try again\n";
+            fi
+    done
+}
+
+echo "-----------------------------"
+echo "- Arch Linux Install Script -"
+echo "-----------------------------"
+
+if ping -c 1 google.com &> /dev/null; then
+  echo Connected
+  install_arch
+  system_type
+else
+  echo "Not Connected" && dhcpcd && sleep 30s
+fi
+
+install_arch
+system_type
