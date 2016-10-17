@@ -17,18 +17,18 @@ setup_disk()
 {
     echo "Available disks:"
     lsblk -dn -e 2,7,11 -p -o NAME,SIZE | column
-    prompt "Choose the disk: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "Choose the disk you would like to install Arch to: " DISK "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 
 }
 
 grub_bios()
 {
-    prompt "Choose the disk for GRUB: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
+    prompt "Choose the disk to install GRUB to: " GRUB "$(lsblk -dn -e 2,7,11 -p -o NAME)"
 }
 
 grub_uefi()
 {
-    echo "UEFI will use bootctl"
+    echo "UEFI will use bootctl. Continuing install..."
 }
 
 crypt_swap()
@@ -182,8 +182,6 @@ bootloader_bios()
 
 bootloader_uefi()
 {
-    devid=$(blkid -s UUID -o value "${DISK}2")
-
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -203,8 +201,6 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
-    devid=$(blkid -s UUID -o value "${DISK}2")
-
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -234,14 +230,13 @@ unmount_shutdown()
     shutdown -r now
 }
 
-install_type()
+install_arch()
 {
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
 
     while [ 1 ]; do
-            read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " SOPT1;
-            read -p "Do you want to encrypt your drive? (y,n): " SOPT2;
-            if [ "$SOPT2" == 'y' ]; then
+            read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
+            if [ "$CRYPT" == 'y' ]; then
                 setup_disk
                 grub_"$MODE"
                 crypt_swap
@@ -250,7 +245,7 @@ install_type()
                 crypt_setup
                 system_install
                 cryptloader_"$MODE"
-#            elif [ "$SOPT2" == 'n' ]; then
+#            elif [ "$CRYPT" == 'n' ]; then
 #                set_hostname
 #                setup_disk
 #                grub_"$MODE"
@@ -262,20 +257,27 @@ install_type()
                 printf "Invalid input! Please try again.";
                 break;
             fi
+    done
+}
 
-            if [ "$SOPT1" == '1' ]; then
+system_type()
+{
+    while [ 1 ]; do
+            read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
+            if [ "$STYPE" == '1' ]; then
                     laptop_utilities
                     unmount_shutdown
-            elif [ "$SOPT1" == '2' ]; then
+            elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
                     unmount_shutdown
-            elif [ "$SOPT1" == '3' ]; then
+            elif [ "$STYPE" == '3' ]; then
                     virtualbox_utilities
                     unmount_shutdown
             else
-                printf "Invalid input! Utilities have not been installed.";
+                printf "Invalid input! Utilities have not been installed.\n";
             fi
     done
 }
 
-install_type
+install_arch
+system_type
