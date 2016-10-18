@@ -150,7 +150,7 @@ crypt_setup()
 system_install()
 {
     DEVID=$(blkid -s PARTUUID -o value "${DISK}3")
-    DEVIDC=$(blkid -s UUID -o value "${DISK}3")
+    DEVIDC=$(blkid -s UUID -o value "${DISK}2")
 
     pacstrap /mnt base base-devel
 
@@ -225,6 +225,7 @@ virtualbox_utilities()
     while [ 1 ]; do
             read -p "Will you need X support? (y,n): " VMX;
             if [ "$VMX" == 'y' ]; then
+                    arch-chroot /mnt pacman -S xf86-input-libinput
                     arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
                     break
             elif [ "$VMX" == 'n' ]; then
