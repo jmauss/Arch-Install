@@ -150,7 +150,7 @@ crypt_setup()
 system_install()
 {
     DEVID=$(blkid -s PARTUUID -o value "${DISK}3")
-    DEVIDC=$(blkid -s UUID -o value "${DISK}2")
+    DEVIDC=$(blkid -s UUID -o value "${DISK}3")
 
     pacstrap /mnt base base-devel
 
