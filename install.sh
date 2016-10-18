@@ -150,7 +150,7 @@ crypt_setup()
 system_install()
 {
     DEVID=$(blkid -s PARTUUID -o value "${DISK}3")
-    DEVIDB=$(blkid -s UUID -o value "${DISK}2")
+    DEVIDC=$(blkid -s UUID -o value "${DISK}2")
 
     pacstrap /mnt base base-devel
 
@@ -196,7 +196,7 @@ cryptloader_bios()
 {
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
-    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDB:lvm\"#" /mnt/etc/default/grub
+    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:lvm\"#" /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 }
 
@@ -205,7 +205,7 @@ cryptloader_uefi()
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
-    sed -i "s/INSERTHERE/$DEVID/" /mnt/boot/loader/entries/arch.conf
+    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
     arch-chroot /mnt bootctl update
 }
 
