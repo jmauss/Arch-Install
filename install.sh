@@ -235,12 +235,6 @@ virtualbox_utilities()
     done
 }
 
-unmount_shutdown()
-{
-    umount -R /mnt
-    shutdown -r now
-}
-
 install_arch()
 {
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
@@ -279,13 +273,16 @@ system_type()
             read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
             if [ "$STYPE" == '1' ]; then
                     laptop_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -r now
             elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -r now
             elif [ "$STYPE" == '3' ]; then
                     virtualbox_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -h now
             else
                 printf "Invalid input! Please try again\n";
             fi
