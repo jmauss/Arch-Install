@@ -186,7 +186,7 @@ bootloader_bios()
 bootloader_uefi()
 {
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
-    arch-chroot /mnt bootctl --path=/boot install
+    bootctl --path=/mnt/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
     sed -i "s/INSERTHERE/$DEVID/" /mnt/boot/loader/entries/arch.conf
     arch-chroot /mnt bootctl update
@@ -203,7 +203,7 @@ cryptloader_bios()
 cryptloader_uefi()
 {
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
-    arch-chroot /mnt bootctl --path=/boot install
+    bootctl --path=/mnt/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
     sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
     arch-chroot /mnt bootctl update
