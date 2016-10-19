@@ -49,6 +49,8 @@ crypt_swap()
 set_swap()
 {
     while [ 1 ]; do
+            MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
+            echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
             read -p "Swap size (in GB): " SWAP;
             if [ $SWAP ]; then
                     break;
@@ -149,7 +151,8 @@ crypt_setup()
 
 system_install()
 {
-    DEVID=$(blkid -s UUID -o value "${DISK}2")
+    DEVID=$(blkid -s PARTUUID -o value "${DISK}3")
+    DEVIDC=$(blkid -s UUID -o value "${DISK}2")
 
     pacstrap /mnt base base-devel
 
@@ -167,16 +170,12 @@ system_install()
     sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
     sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
 
-    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-
-    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
-    arch-chroot /mnt mkinitcpio -p linux
-
     arch-chroot /mnt passwd
 }
 
 bootloader_bios()
 {
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -193,18 +192,25 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
+    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
+    arch-chroot /mnt mkinitcpio -p linux
+    
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
-    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVID:lvm\"#" /mnt/etc/default/grub
+    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:lvm\"#" /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 cryptloader_uefi()
 {
+    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
+    arch-chroot /mnt mkinitcpio -p linux
+    
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
-    sed -i "s/INSERTHERE/$DEVID/" /mnt/boot/loader/entries/arch.conf
+    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
     arch-chroot /mnt bootctl update
 }
 
@@ -224,6 +230,7 @@ virtualbox_utilities()
     while [ 1 ]; do
             read -p "Will you need X support? (y,n): " VMX;
             if [ "$VMX" == 'y' ]; then
+                    arch-chroot /mnt pacman -S xf86-input-libinput
                     arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
                     break
             elif [ "$VMX" == 'n' ]; then
@@ -233,12 +240,6 @@ virtualbox_utilities()
                 printf "Invalid input! Please try again\n";
             fi
     done
-}
-
-unmount_shutdown()
-{
-    umount -R /mnt
-    shutdown -r now
 }
 
 install_arch()
@@ -279,13 +280,16 @@ system_type()
             read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
             if [ "$STYPE" == '1' ]; then
                     laptop_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -r now
             elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -r now
             elif [ "$STYPE" == '3' ]; then
                     virtualbox_utilities
-                    unmount_shutdown
+                    umount -R /mnt
+                    shutdown -h now
             else
                 printf "Invalid input! Please try again\n";
             fi
@@ -293,7 +297,7 @@ system_type()
 }
 
 echo "-----------------------------"
-echo "- Arch Linux Install Script -"
+echo "| Arch Linux Install Script |"
 echo "-----------------------------"
 
 if ping -c 1 google.com &> /dev/null; then
@@ -301,7 +305,7 @@ if ping -c 1 google.com &> /dev/null; then
   install_arch
   system_type
 else
-  echo "Not Connected" && dhcpcd && sleep 30s
+  echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s
 fi
 
 install_arch
