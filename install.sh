@@ -204,11 +204,15 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
-    arch-chroot /mnt pacman -S intel-ucode --noconfirm
-    bootctl --path=/mnt/boot install
-    curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
-    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
-    arch-chroot /mnt bootctl update
+    arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
+    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=grub
+    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:lvm\"#" /mnt/etc/default/grub
+    arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+#    arch-chroot /mnt pacman -S intel-ucode --noconfirm
+#    bootctl --path=/mnt/boot install
+#    curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
+#    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
+#    arch-chroot /mnt bootctl update
 }
 
 laptop_utilities()
