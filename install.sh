@@ -170,9 +170,6 @@ system_install()
     sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
     sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
 
-    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
-    arch-chroot /mnt mkinitcpio -p linux
-
     arch-chroot /mnt passwd
 }
 
@@ -195,6 +192,9 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
+    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
+    arch-chroot /mnt mkinitcpio -p linux
+    
     sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
@@ -204,6 +204,9 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
+    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
+    arch-chroot /mnt mkinitcpio -p linux
+    
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
@@ -294,7 +297,7 @@ system_type()
 }
 
 echo "-----------------------------"
-echo "| Arch Linux Install Script -"
+echo "| Arch Linux Install Script |"
 echo "-----------------------------"
 
 if ping -c 1 google.com &> /dev/null; then
