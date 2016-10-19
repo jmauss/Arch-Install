@@ -49,6 +49,8 @@ crypt_swap()
 set_swap()
 {
     while [ 1 ]; do
+            MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
+            echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
             read -p "Swap size (in GB): " SWAP;
             if [ $SWAP ]; then
                     break;
