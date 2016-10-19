@@ -170,8 +170,6 @@ system_install()
     sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
     sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
 
-    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-
     sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 
@@ -180,6 +178,7 @@ system_install()
 
 bootloader_bios()
 {
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -188,7 +187,7 @@ bootloader_bios()
 bootloader_uefi()
 {
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
-    bootctl --path=/mnt/boot install
+    arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
     sed -i "s/INSERTHERE/$DEVID/" /mnt/boot/loader/entries/arch.conf
     arch-chroot /mnt bootctl update
@@ -196,6 +195,7 @@ bootloader_uefi()
 
 cryptloader_bios()
 {
+    sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
     arch-chroot /mnt pacman -S intel-ucode grub os-prober --noconfirm
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:lvm\"#" /mnt/etc/default/grub
@@ -204,15 +204,11 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
-    arch-chroot /mnt pacman -S intel-ucode grub efibootmgr os-prober --noconfirm
-    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=grub
-    sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:lvm\"#" /mnt/etc/default/grub
-    arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-#    arch-chroot /mnt pacman -S intel-ucode --noconfirm
-#    bootctl --path=/mnt/boot install
-#    curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
-#    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
-#    arch-chroot /mnt bootctl update
+    arch-chroot /mnt pacman -S intel-ucode --noconfirm
+    arch-chroot /mnt bootctl --path=/boot install
+    curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
+    sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
+    arch-chroot /mnt bootctl update
 }
 
 laptop_utilities()
