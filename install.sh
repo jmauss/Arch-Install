@@ -294,7 +294,7 @@ system_type()
 }
 
 echo "-----------------------------"
-echo "- Arch Linux Install Script -"
+echo "| Arch Linux Install Script -"
 echo "-----------------------------"
 
 if ping -c 1 google.com &> /dev/null; then
@@ -302,7 +302,7 @@ if ping -c 1 google.com &> /dev/null; then
   install_arch
   system_type
 else
-  echo "Not Connected" && dhcpcd && sleep 30s
+  echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s
 fi
 
 install_arch
