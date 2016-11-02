@@ -89,6 +89,7 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3block
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
 chown $user_name:wheel .zshrc .Xresources .xinitrc .zprofile .config/termite/config .config/gtk-3.0/gtk.css .config/i3blocks/i3blocks.conf .config/i3blocks/scripts/playing.py .config/i3/config
+cd
 
 rm /home/$user_name/.bash*
 rm -r *
