@@ -64,7 +64,7 @@ cd
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
 sudo -u $user_name pacaur -S xf86-video-intel mesa-libgl lib32-mesa-libgl xf86-input-libinput xorg-server xorg-xinit alsa-utils --noconfirm --noedit
-sudo -u $user_name pacaur -S mpv qt4 shutter feh compton htop screenfetch ranger networkmanager lxappearance xdg-user-dirs ntfs-3g dosfstools unzip p7zip xorg-xprop xorg-xwininfo i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
+sudo -u $user_name pacaur -S mpv qt4 shutter feh compton htop screenfetch ranger networkmanager lxappearance xdg-user-dirs ntfs-3g dosfstools unzip p7zip xorg-utils i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
 sudo -u $user_name pacaur -S ttf-roboto ttf-roboto-mono ttf-liberation ttf-font-awesome gtk-theme-arc-grey-git paper-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
 sudo -u $user_name pacaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
