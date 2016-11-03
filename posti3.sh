@@ -54,11 +54,11 @@ cd /tmp
 sudo -u $user_name git clone https://aur.archlinux.org/cower.git
 cd cower/
 sudo -u $user_name makepkg -sri --noconfirm --skippgpcheck
-#cd /tmp
+cd /tmp
 
-#sudo -u $user_name git clone https://aur.archlinux.org/pacaur.git
-#cd pacaur/
-#sudo -u $user_name makepkg -sri --noconfirm
+sudo -u $user_name git clone https://aur.archlinux.org/pacaur.git
+cd pacaur/
+sudo -u $user_name makepkg -sri --noconfirm
 cd
 
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
@@ -103,6 +103,8 @@ chown -R $user_name:wheel .zshrc .Xresources .xinitrc .zprofile .config
 cd .config/i3blocks/scripts/
 chmod u+x playing sp
 cd
+
+pacman -Rns pacaur --noconfirm
 
 rm /home/$user_name/.bash*
 rm -r *
