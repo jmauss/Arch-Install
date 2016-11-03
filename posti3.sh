@@ -86,7 +86,6 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zprofile -o /
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/termite/config -o /home/$user_name/.config/termite/config
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0/gtk.css -o /home/$user_name/.config/gtk-3.0/gtk.css
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/scripts/playing.py -o /home/$user_name/.config/i3blocks/scripts/playing.py
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
 chown -R $user_name:wheel .zshrc .Xresources .xinitrc .zprofile .config
