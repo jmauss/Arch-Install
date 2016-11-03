@@ -99,7 +99,7 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/conf
 cd /home/$user_name/
 cp /usr/share/doc/cower/config .config/cower/
 sed -i 's/#TargetDir =/TargetDir = ~\/Builds\//' .config/cower/config
-chown -R $user_name:wheel .zshrc .Xresources .xinitrc .zprofile .config
+chown -R $user_name:wheel .zshrc .Xresources .xinitrc .zprofile .config Builds
 cd .config/i3blocks/scripts/
 chmod u+x playing sp
 cd
