@@ -70,7 +70,7 @@ sudo -u $user_name pacaur -S ttf-roboto ttf-roboto-mono ttf-liberation ttf-font-
 sudo -u $user_name pacaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
 
 # For laptop installation (battery,)
-sudo -u $user_name pacaur -S acpi
+sudo -u $user_name pacaur -S acpi --noconfirm --noedit
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
