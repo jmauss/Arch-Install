@@ -36,20 +36,20 @@ fi
 ask_for_username
 ask_for_password
 
-sudo useradd -c $name -m -g wheel -s /bin/zsh $user_name
-sudo passwd $user_name << EOPF
+useradd -c $name -m -g wheel -s /bin/zsh $user_name
+passwd $user_name << EOPF
 $passwd1
 $passwd2
 EOPF
 
 xdg-user-dirs-update
 
-sudo mkdir -p /home/$user_name/Builds
-sudo mkdir -p /home/$user_name/.config/cower
-sudo mkdir -p /home/$user_name/.config/termite
-sudo mkdir -p /home/$user_name/.config/i3blocks/scripts
-sudo mkdir -p /home/$user_name/.config/i3
-sudo mkdir -p /home/$user_name/.config/gtk-3.0
+mkdir -p /home/$user_name/Builds
+mkdir -p /home/$user_name/.config/cower
+mkdir -p /home/$user_name/.config/termite
+mkdir -p /home/$user_name/.config/i3blocks/scripts
+mkdir -p /home/$user_name/.config/i3
+mkdir -p /home/$user_name/.config/gtk-3.0
 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.Xresources -o /home/$user_name/.Xresources
