@@ -42,8 +42,6 @@ $passwd1
 $passwd2
 EOPF
 
-xdg-user-dirs-update
-
 mkdir -p /home/$user_name/Builds
 mkdir -p /home/$user_name/.config/cower
 mkdir -p /home/$user_name/.config/termite
