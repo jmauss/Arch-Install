@@ -77,7 +77,6 @@ sudo -u $user_name pacaur -S downgrade --noconfirm --noedit
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-xdg-user-dirs-update
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/mirrorupgrade.hook -o /etc/pacman.d/mirrorupgrade.hook
 systemctl enable thermald.service
 systemctl enable NetworkManager.service
