@@ -185,8 +185,8 @@ exec --no-startup-id compton -f --vsync opengl --unredir-if-possible
 # exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/
 
 # Personal Key Bindings
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10%
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +10%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -10%"
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym $mod+Shift+s exec shutter -s -e
 bindsym $mod+c exec chromium
