@@ -178,7 +178,7 @@ gaps outer 6
 bindsym $mod+Shift+f exec --no-startup-id i3lock-fancy
 
 exec --no-startup-id xset dpms 900
-exec --no-startup-id xautolock -secure -time 15 -locker i3lock-fancy
+exec --no-startup-id xautolock -secure -time 15 -locker 'i3lock-fancy -f Roboto'
 
 exec --no-startup-id compton -f --vsync opengl --unredir-if-possible
 # exec --no-startup-id nitrogen --restore
