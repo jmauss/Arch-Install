@@ -110,7 +110,7 @@ cd
 pacman -Rns pacaur --noconfirm
 
 rm /home/$user_name/.bash*
+rm -r /home/$user_name/.cache/pacaur/
 rm -r *
-rm .bash_history
 
 shutdown -r now
