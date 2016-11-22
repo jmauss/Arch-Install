@@ -65,7 +65,7 @@ cd
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
 # Audio Drivers
-sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa lib32-libpulse lib32-alsa-plugins --noconfirm --noedit
+sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
 
 # System Core
 sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtables dnsmasq ttf-roboto ttf-roboto-mono ttf-liberation lib32-fontconfig thermald qt5-styleplugins qt5ct xorg-xprop xorg-xwininfo  --noconfirm --noedit
