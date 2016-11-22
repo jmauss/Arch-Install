@@ -64,9 +64,6 @@ cd
 
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
-# Video\Input Drivers
-sudo -u $user_name pacaur -S xf86-video-intel mesa-libgl lib32-mesa-libgl xf86-input-libinput xorg-server --noconfirm --noedit
-
 # Audio Drivers
 sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa lib32-libpulse lib32-alsa-plugins --noconfirm --noedit
 
