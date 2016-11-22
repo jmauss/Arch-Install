@@ -37,5 +37,5 @@ done
 
 # In the THEME_DIR you will find the file gnome-shell.css.
 # This file can be edited to change the font family and background
-# color of the calendar.
+# color of the calendar. #2C3133 - Gnome dark 
 
