@@ -65,22 +65,22 @@ cd
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
 # Audio Drivers
-sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
+sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
 
 # System Core
-sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtables dnsmasq ttf-roboto ttf-roboto-mono ttf-liberation lib32-fontconfig thermald qt5-styleplugins qt5ct xorg-xprop xorg-xwininfo  --noconfirm --noedit
+sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtables dnsmasq ttf-roboto ttf-roboto-mono ttf-liberation lib32-fontconfig thermald qt5-styleplugins qt5ct xorg-xprop xorg-xwininfo  --noconfirm --noedit --needed
 
 # Gnome Core
-sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker vino xdg-user-dirs-gtk gedit networkmanager network-manager-applet gnome-boxes --noconfirm --noedit
+sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker vino xdg-user-dirs-gtk gedit networkmanager network-manager-applet gnome-boxes --noconfirm --noedit --needed
 
 # Shell Extensions
-sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,weather-git} --noconfirm --noedit
+sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,weather-git} --noconfirm --noedit --needed
 
 # System Programs
-sudo -u $user_name pacaur -S vlc chromium pepper-flash chromium-widevine --noconfirm --noedit
+sudo -u $user_name pacaur -S vlc chromium pepper-flash chromium-widevine --noconfirm --noedit --needed
 
 # System Theming 
-sudo -u $user_name pacaur -S paper-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
+sudo -u $user_name pacaur -S paper-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit --needed
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
