@@ -216,12 +216,12 @@ cryptloader_uefi()
 
 laptop_utilities()
 {
-    arch-chroot /mnt pacman -S iw wpa_supplicant dialog --noconfirm
+    arch-chroot /mnt pacman -S iw wpa_supplicant dialog xf86-video-intel mesa-libgl xf86-input-libinput xorg-server --noconfirm
 }
 
 desktop_utilities()
 {
-    arch-chroot /mnt pacman -S nvidia nvidia-libgl xf86-input-libinput --noconfirm
+    arch-chroot /mnt pacman -S nvidia nvidia-libgl xf86-input-libinput nvidia-settings --noconfirm
 }
 
 virtualbox_utilities()
