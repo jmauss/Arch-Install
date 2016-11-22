@@ -98,6 +98,7 @@ curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrom
 cp /usr/share/doc/cower/config .config/cower/
 sed -i 's/#TargetDir =/TargetDir = ~\/Builds\//' .config/cower/config
 chown -R $user_name:wheel gnomedark.crx extractGSTcss.sh .zshrc .config Builds
+chmod u+x extractGSTcss.sh
 cd
 
 pacman -Rns pacaur --noconfirm
