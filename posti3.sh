@@ -81,12 +81,14 @@ systemctl enable thermald.service
 systemctl enable NetworkManager.service
 
 mkdir -p /home/$user_name/Builds
+mkdir -p /home/$user_name/Scripts
 mkdir -p /home/$user_name/.config/cower
 mkdir -p /home/$user_name/.config/termite
 mkdir -p /home/$user_name/.config/i3blocks/scripts
 mkdir -p /home/$user_name/.config/i3
 mkdir -p /home/$user_name/.config/gtk-3.0
 
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3user.sh -o /home/$user_name/Scripts/i3user.sh
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.Xresources -o /home/$user_name/.Xresources
@@ -102,6 +104,7 @@ cd /home/$user_name/
 cp /usr/share/doc/cower/config .config/cower/
 sed -i 's/#TargetDir =/TargetDir = ~\/Builds\//' .config/cower/config
 chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .config Builds
+chmod u+x Scripts/i3user.sh
 cd .config/i3blocks/scripts/
 chmod u+x playing sp
 cd
