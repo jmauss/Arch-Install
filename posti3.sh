@@ -76,10 +76,10 @@ sudo -u $user_name pacaur -S downgrade --noconfirm --noedit
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/mirrorupgrade.hook -o /etc/pacman.d/mirrorupgrade.hook
 systemctl enable thermald.service
 systemctl enable NetworkManager.service
 
+mkdir -p /etc/pacman.d/hooks
 mkdir -p /home/$user_name/Builds
 mkdir -p /home/$user_name/Scripts
 mkdir -p /home/$user_name/.config/cower
@@ -88,6 +88,7 @@ mkdir -p /home/$user_name/.config/i3blocks/scripts
 mkdir -p /home/$user_name/.config/i3
 mkdir -p /home/$user_name/.config/gtk-3.0
 
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/mirrorupgrade.hook -o /etc/pacman.d/hooks/mirrorupgrade.hook
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3user.sh -o /home/$user_name/Scripts/i3user.sh
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
