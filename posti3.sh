@@ -53,12 +53,12 @@ cd /tmp
 
 sudo -u $user_name git clone https://aur.archlinux.org/cower.git
 cd cower/
-sudo -u $user_name makepkg -sri --noconfirm --skippgpcheck
+sudo -u $user_name makepkg -sric --noconfirm --skippgpcheck
 cd /tmp
 
 sudo -u $user_name git clone https://aur.archlinux.org/pacaur.git
 cd pacaur/
-sudo -u $user_name makepkg -sri --noconfirm
+sudo -u $user_name makepkg -sric --noconfirm
 cd
 
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
