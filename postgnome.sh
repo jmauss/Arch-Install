@@ -87,10 +87,9 @@ sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 systemctl enable thermald.service
 systemctl enable gdm.service
 
-mkdir -p /etc/pacman.d/hooks
 mkdir -p /home/$user_name/Builds
 mkdir -p /home/$user_name/.config/cower
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/mirrorupgrade.hook -o /etc/pacman.d/hooks/mirrorupgrade.hook
+
 cd /home/$user_name/
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/extractGSTcss.sh
