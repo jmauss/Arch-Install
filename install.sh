@@ -216,17 +216,22 @@ cryptloader_uefi()
 
 laptop_utilities()
 {
-    arch-chroot /mnt pacman -S iw wpa_supplicant dialog xf86-video-intel mesa-libgl xf86-input-libinput xorg-server --noconfirm
+    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp networkmanager xf86-video-intel mesa-libgl xf86-input-libinput xorg-server --noconfirm
+    arch-chroot /mnt systemctl enable tlp.service
+    arch-chroot /mnt systemctl enable tlp-sleep.service
+    arch-chroot /mnt systemctl disable systemd-rfkill.service
 }
 
 desktop_utilities()
 {
-    arch-chroot /mnt pacman -S nvidia nvidia-libgl xf86-input-libinput nvidia-settings --noconfirm
+    arch-chroot /mnt pacman -S nvidia nvidia-libgl networkmanager xf86-input-libinput nvidia-settings --noconfirm
+    arch-chroot /mnt systemctl enable NetworkManager.service
 }
 
 virtualbox_utilities()
 {
-    arch-chroot /mnt pacman -S virtualbox-guest-modules-arch --noconfirm
+    arch-chroot /mnt pacman -S virtualbox-guest-modules-arch networkmanager --noconfirm
+    arch-chroot /mnt systemctl enable NetworkManager.service
     while [ 1 ]; do
             read -p "Will you need X support? (y,n): " VMX;
             if [ "$VMX" == 'y' ]; then
