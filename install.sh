@@ -247,6 +247,23 @@ virtualbox_utilities()
     done
 }
 
+security_tools()
+{
+    while [ 1 ]; do
+            read -p "Will you need security tools? (y,n): " TOOLS;
+            if [ "$TOOLS" == 'y' ]; then
+                    arch-chroot /mnt pacman -S testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+                    arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq --noconfirm
+                    arch-chroot /mnt systemctl enable libvirtd.service
+                    break
+            elif [ "$TOOLS" == 'n' ]; then
+                    break
+            else
+                printf "Invalid input! Please try again\n";
+            fi
+    done
+}
+
 install_arch()
 {
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
@@ -285,14 +302,17 @@ system_type()
             read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
             if [ "$STYPE" == '1' ]; then
                     laptop_utilities
+                    security_tools
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
+                    security_tools
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '3' ]; then
                     virtualbox_utilities
+                    security_tools
                     umount -R /mnt
                     shutdown -h now
             else
