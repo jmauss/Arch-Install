@@ -26,6 +26,22 @@ while [ 1 ]; do
 done
 }
 
+user_add()
+{
+    while [ 1 ]; do
+            read -p "Will this user need access to QEMU? (y,n): " QUSR;
+            if [ "$QUSR" == 'y' ]; then
+                    useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
+                    break
+            elif [ "$QUSR" == 'n' ]; then
+                    useradd -c $name -m -g wheel -s /bin/zsh $user_name
+                    break
+            else
+                printf "Invalid input! Please try again\n";
+            fi
+    done
+}
+
 if ping -c 1 google.com &> /dev/null
 then
   echo Connected
@@ -39,7 +55,8 @@ ask_for_password
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
 pacman -Syu zsh zsh-completions --noconfirm
 
-useradd -c $name -m -g wheel -s /bin/zsh $user_name
+user_add
+
 passwd $user_name << EOPF
 $passwd1
 $passwd2
