@@ -64,7 +64,7 @@ cd
 sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
 sudo -u $user_name pacaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
-sudo -u $user_name pacaur -S mpv qt4 shutter feh compton htop screenfetch ranger networkmanager lxappearance xdg-user-dirs ntfs-3g dosfstools unzip p7zip xorg-utils i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
+sudo -u $user_name pacaur -S mpv qt4 shutter feh compton htop screenfetch ranger lxappearance xdg-user-dirs ntfs-3g dosfstools unzip p7zip xorg-utils i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
 sudo -u $user_name pacaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-standard paper-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
 sudo -u $user_name pacaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
 
@@ -77,7 +77,6 @@ sudo -u $user_name pacaur -S downgrade --noconfirm --noedit
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 systemctl enable thermald.service
-systemctl enable NetworkManager.service
 
 mkdir -p /etc/pacman.d/hooks
 mkdir -p /home/$user_name/Builds
