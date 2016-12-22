@@ -49,7 +49,7 @@ EOPF
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
-pacman -Syu git --noconfirm
+pacman -Syu git --noconfirm --needed
 cd /tmp
 
 sudo -u $user_name git clone https://aur.archlinux.org/cower.git
