@@ -30,3 +30,4 @@ fi
 SAVEHIST=1000
 
 alias ls='ls --color=auto'
+alias oops='sudo !!'
