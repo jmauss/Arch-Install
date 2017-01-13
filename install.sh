@@ -220,6 +220,9 @@ laptop_utilities()
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl disable systemd-rfkill.service
+    
+    sed -i "s/MODULES=\"\"/MODULES=\"i915\"/" /mnt/etc/mkinitcpio.conf
+    arch-chroot /mnt mkinitcpio -p linux
 }
 
 desktop_utilities()
