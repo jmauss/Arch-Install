@@ -160,6 +160,7 @@ system_install()
 
     arch-chroot /mnt pacman -S reflector --noconfirm
     arch-chroot /mnt reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c "United States" -f 5 -l 5
+    arch-chroot /mnt rm /etc/localtime
     arch-chroot /mnt ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
     arch-chroot /mnt hwclock --systohc --utc
     sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /mnt/etc/locale.gen
