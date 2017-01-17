@@ -182,7 +182,7 @@ exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker 'i3lock-fa
 
 exec --no-startup-id compton -f --vsync opengl --unredir-if-possible
 # exec --no-startup-id nitrogen --restore
-# exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/
+# exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/
 
 # Personal Key Bindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +10%"
