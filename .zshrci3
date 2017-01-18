@@ -31,3 +31,5 @@ SAVEHIST=1000
 
 alias ls='ls --color=auto'
 alias please='sudo $(fc -ln -1)'
+alias sudo='sudo '
+alias weather='curl wttr.in/Sioux_Falls'
