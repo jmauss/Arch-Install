@@ -222,6 +222,8 @@ laptop_utilities()
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl disable systemd-rfkill.service
     
+    curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/30-touchpad.conf -o /mnt/etc/X11/xorg.conf.d/30-touchpad.conf
+    
     sed -i "s/MODULES=\"\"/MODULES=\"i915\"/" /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 }
