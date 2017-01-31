@@ -29,15 +29,20 @@ done
 user_add()
 {
     while [ 1 ]; do
-            read -p "Will this user need access to QEMU? (y,n): " QUSR;
-            if [ "$QUSR" == 'y' ]; then
-                    useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
-                    break
-            elif [ "$QUSR" == 'n' ]; then
-                    useradd -c $name -m -g wheel -s /bin/zsh $user_name
-                    break
+            if pacman -Qs qemu > /dev/null ; then
+                    read -p "Will this user need access to QEMU? (y,n): " QUSR;
+                    if [ "$QUSR" == 'y' ]; then
+                            useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
+                            break
+                    elif [ "$QUSR" == 'n' ]; then
+                            useradd -c $name -m -g wheel -s /bin/zsh $user_name
+                            break
+                    else
+                            printf "Invalid input! Please try again\n";
+                    fi
             else
-                printf "Invalid input! Please try again\n";
+                useradd -c $name -m -g wheel -s /bin/zsh $user_name
+                break
             fi
     done
 }
