@@ -217,10 +217,11 @@ cryptloader_uefi()
 
 laptop_utilities()
 {
-    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp networkmanager mesa-libgl xf86-input-libinput xorg-server --noconfirm
+    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp bluez bluez-utils networkmanager mesa-libgl xf86-input-libinput xorg-server --noconfirm
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl disable systemd-rfkill.service
+    arch-chroot /mnt systemctl enable bluetooth.service
     
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/30-touchpad.conf -o /mnt/etc/X11/xorg.conf.d/30-touchpad.conf
     
@@ -258,9 +259,26 @@ security_tools()
     while [ 1 ]; do
             read -p "Will you need security tools? (y,n): " TOOLS;
             if [ "$TOOLS" == 'y' ]; then
-                    arch-chroot /mnt pacman -S testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+                    arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+                    arch-chroot /mnt systemctl enable libvirtd.service
                     break
             elif [ "$TOOLS" == 'n' ]; then
+                    break
+            else
+                printf "Invalid input! Please try again\n";
+            fi
+    done
+}
+
+printer_drivers()
+{
+    while [ 1 ]; do
+            read -p "Will you need HP Printer drivers? (y,n): " PRNT;
+            if [ "$PRNT" == 'y' ]; then
+                    arch-chroot /mnt pacman -S cups cups-pdf hplip --noconfirm
+                    arch-chroot /mnt systemctl enable org.cups.cupsd.service
+                    break
+            elif [ "$PRNT" == 'n' ]; then
                     break
             else
                 printf "Invalid input! Please try again\n";
@@ -307,11 +325,13 @@ system_type()
             if [ "$STYPE" == '1' ]; then
                     laptop_utilities
                     security_tools
+                    printer_drivers
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
                     security_tools
+                    printer_drivers
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '3' ]; then
