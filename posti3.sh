@@ -26,6 +26,33 @@ while [ 1 ]; do
 done
 }
 
+user_add()
+{
+    while [ 1 ]; do
+            if pacman -Qs qemu > /dev/null ; then
+                    read -p "Will this user need access to QEMU? (y,n): " QUSR;
+                    if [ "$QUSR" == 'y' ]; then
+                            useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
+                            break
+                    elif [ "$QUSR" == 'n' ]; then
+                            useradd -c $name -m -g wheel -s /bin/zsh $user_name
+                            break
+                    else
+                            printf "Invalid input! Please try again\n";
+                    fi
+            else
+                useradd -c $name -m -g wheel -s /bin/zsh $user_name
+                break
+            fi
+    done
+}
+
+if pacman -Qs $package > /dev/null ; then
+  echo "The package $package is installed"
+else
+  echo "The package $package is not installed"
+fi
+
 if ping -c 1 google.com &> /dev/null
 then
   echo Connected
@@ -36,10 +63,12 @@ fi
 ask_for_username
 ask_for_password
 
+user_add
+
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
 pacman -Syu zsh zsh-completions --noconfirm
 
-useradd -c $name -m -g wheel -s /bin/zsh $user_name
+#useradd -c $name -m -g wheel -s /bin/zsh $user_name
 passwd $user_name << EOPF
 $passwd1
 $passwd2
