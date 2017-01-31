@@ -47,12 +47,6 @@ user_add()
     done
 }
 
-if pacman -Qs $package > /dev/null ; then
-  echo "The package $package is installed"
-else
-  echo "The package $package is not installed"
-fi
-
 if ping -c 1 google.com &> /dev/null
 then
   echo Connected
