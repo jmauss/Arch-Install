@@ -57,12 +57,11 @@ fi
 ask_for_username
 ask_for_password
 
-user_add
-
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
 pacman -Syu zsh zsh-completions --noconfirm
 
-#useradd -c $name -m -g wheel -s /bin/zsh $user_name
+user_add
+
 passwd $user_name << EOPF
 $passwd1
 $passwd2
