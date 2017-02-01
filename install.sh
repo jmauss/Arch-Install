@@ -168,8 +168,7 @@ system_install()
     echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 
     echo "$HOST_NAME" > /mnt/etc/hostname
-    sed -i "/^127.0.0.1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
-    sed -i "/^::1/ s/$/\t$HOST_NAME/" /mnt/etc/hosts
+    sed -i "/::1/a127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" /mnt/etc/hosts
 
     arch-chroot /mnt passwd
 }
