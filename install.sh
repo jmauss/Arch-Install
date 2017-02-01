@@ -293,7 +293,7 @@ drive_test()
     then
         arch-chroot /mnt systemctl enable fstrim.timer
     else
-        printf "Drive is an HDD";
+        printf "Drive is an HDD\n";
     fi
 }
 
