@@ -287,7 +287,7 @@ printer_drivers()
 
 drive_test()
 {
-    DLET="$(echo $DRIVE | cut -c6-8 )"
+    DLET="$(echo "$DRIVE" | cut -c6-8 )"
     DTEST="$(cat /sys/block/$DLET/queue/rotational)"
     if [ "$DTEST" == '1' ];
     then
