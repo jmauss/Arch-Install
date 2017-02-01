@@ -285,6 +285,17 @@ printer_drivers()
     done
 }
 
+drive_test()
+{
+    DTEST="$(cat /sys/block/sda/queue/rotational)"
+    if [ "$DTEST" == '1' ];
+    then
+        arch-chroot /mnt systemctl enable fstrim.timer
+    else
+        printf "Drive is an HDD";
+    fi
+}
+
 install_arch()
 {
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
@@ -325,12 +336,14 @@ system_type()
                     laptop_utilities
                     security_tools
                     printer_drivers
+                    drive_test
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '2' ]; then
                     desktop_utilities
                     security_tools
                     printer_drivers
+                    drive_test
                     umount -R /mnt
                     shutdown -r now
             elif [ "$STYPE" == '3' ]; then
