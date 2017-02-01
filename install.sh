@@ -287,7 +287,8 @@ printer_drivers()
 
 drive_test()
 {
-    DTEST="$(cat /sys/block/sda/queue/rotational)"
+    DLET="$(echo $DRIVE | cut -c6-8 )
+    DTEST="$(cat /sys/block/$DLET/queue/rotational)"
     if [ "$DTEST" == '1' ];
     then
         arch-chroot /mnt systemctl enable fstrim.timer
