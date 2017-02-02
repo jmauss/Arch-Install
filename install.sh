@@ -49,22 +49,22 @@ crypt_swap()
 set_swap()
 {
     while [ 1 ]; do
-            MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
-            echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
-            read -p "Swap size (in GB): " SWAP;
-            if [ $SWAP ]; then
-                    break;
-            fi
+        MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
+        echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
+        read -p "Swap size (in GB): " SWAP;
+        if [ $SWAP ]; then
+            break;
+        fi
     done
 }
 
 set_hostname()
 {
     while [ 1 ]; do
-            read -p "Preferred hostname: " HOST_NAME;
-            if [ "$HOST_NAME" ]; then
-                    break;
-            fi
+        read -p "Preferred hostname: " HOST_NAME;
+        if [ "$HOST_NAME" ]; then
+            break;
+        fi
     done
 }
 
@@ -239,49 +239,49 @@ virtualbox_utilities()
     arch-chroot /mnt pacman -S virtualbox-guest-modules-arch networkmanager --noconfirm
     arch-chroot /mnt systemctl enable NetworkManager.service
     while [ 1 ]; do
-            read -p "Will you need X support? (y,n): " VMX;
-            if [ "$VMX" == 'y' ]; then
-                    arch-chroot /mnt pacman -S xf86-input-libinput
-                    arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
-                    break
-            elif [ "$VMX" == 'n' ]; then
-                    arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
-                    break
-            else
-                printf "Invalid input! Please try again\n";
-            fi
+        read -p "Will you need X support? (y,n): " VMX;
+        if [ "$VMX" == 'y' ]; then
+            arch-chroot /mnt pacman -S xf86-input-libinput
+            arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
+            break
+        elif [ "$VMX" == 'n' ]; then
+            arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+            break
+        else
+            printf "Invalid input! Please try again\n";
+        fi
     done
 }
 
 security_tools()
 {
     while [ 1 ]; do
-            read -p "Will you need security tools? (y,n): " TOOLS;
-            if [ "$TOOLS" == 'y' ]; then
-                    arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
-                    arch-chroot /mnt systemctl enable libvirtd.service
-                    break
-            elif [ "$TOOLS" == 'n' ]; then
-                    break
-            else
-                printf "Invalid input! Please try again\n";
-            fi
+        read -p "Will you need security tools? (y,n): " TOOLS;
+        if [ "$TOOLS" == 'y' ]; then
+            arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+            arch-chroot /mnt systemctl enable libvirtd.service
+            break
+        elif [ "$TOOLS" == 'n' ]; then
+            break
+        else
+            printf "Invalid input! Please try again\n";
+        fi
     done
 }
 
 printer_drivers()
 {
     while [ 1 ]; do
-            read -p "Will you need HP Printer drivers? (y,n): " PRNT;
-            if [ "$PRNT" == 'y' ]; then
-                    arch-chroot /mnt pacman -S cups cups-pdf hplip --noconfirm
-                    arch-chroot /mnt systemctl enable org.cups.cupsd.service
-                    break
-            elif [ "$PRNT" == 'n' ]; then
-                    break
-            else
-                printf "Invalid input! Please try again\n";
-            fi
+        read -p "Will you need HP Printer drivers? (y,n): " PRNT;
+        if [ "$PRNT" == 'y' ]; then
+            arch-chroot /mnt pacman -S cups cups-pdf hplip --noconfirm
+            arch-chroot /mnt systemctl enable org.cups.cupsd.service
+            break
+        elif [ "$PRNT" == 'n' ]; then
+            break
+        else
+            printf "Invalid input! Please try again\n";
+        fi
     done
 }
 
@@ -302,59 +302,59 @@ install_arch()
     [ -d "/sys/firmware/efi" ] && MODE="uefi" || MODE="bios"
 
     while [ 1 ]; do
-            read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
-            if [ "$CRYPT" == 'y' ]; then
-                setup_disk
-                grub_"$MODE"
-                crypt_swap
-                set_hostname
-                "$MODE"_cryptpartitioning
-                crypt_setup
-                system_install
-                cryptloader_"$MODE"
-                break
-            elif [ "$CRYPT" == 'n' ]; then
-                setup_disk
-                grub_"$MODE"
-                set_swap
-                set_hostname
-                "$MODE"_partitioning
-                system_install
-                bootloader_"$MODE"
-                break
-            else
-                printf "Invalid input! Please try again\n";
-                break;
-            fi
+        read -p "Do you want to encrypt your drive? (y,n): " CRYPT;
+        if [ "$CRYPT" == 'y' ]; then
+            setup_disk
+            grub_"$MODE"
+            crypt_swap
+            set_hostname
+            "$MODE"_cryptpartitioning
+            crypt_setup
+            system_install
+            cryptloader_"$MODE"
+            break
+        elif [ "$CRYPT" == 'n' ]; then
+            setup_disk
+            grub_"$MODE"
+            set_swap
+            set_hostname
+            "$MODE"_partitioning
+            system_install
+            bootloader_"$MODE"
+            break
+        else
+            printf "Invalid input! Please try again\n";
+            break;
+        fi
     done
 }
 
 system_type()
 {
     while [ 1 ]; do
-            read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
-            if [ "$STYPE" == '1' ]; then
-                    laptop_utilities
-                    security_tools
-                    printer_drivers
-                    drive_test
-                    umount -R /mnt
-                    shutdown -r now
-            elif [ "$STYPE" == '2' ]; then
-                    desktop_utilities
-                    security_tools
-                    printer_drivers
-                    drive_test
-                    umount -R /mnt
-                    shutdown -r now
-            elif [ "$STYPE" == '3' ]; then
-                    virtualbox_utilities
-                    security_tools
-                    umount -R /mnt
-                    shutdown -h now
-            else
-                printf "Invalid input! Please try again\n";
-            fi
+        read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
+        if [ "$STYPE" == '1' ]; then
+            laptop_utilities
+            security_tools
+            printer_drivers
+            drive_test
+            umount -R /mnt
+            shutdown -r now
+        elif [ "$STYPE" == '2' ]; then
+            desktop_utilities
+            security_tools
+            printer_drivers
+            drive_test
+            umount -R /mnt
+            shutdown -r now
+        elif [ "$STYPE" == '3' ]; then
+            virtualbox_utilities
+            security_tools
+            umount -R /mnt
+            shutdown -h now
+        else
+            printf "Invalid input! Please try again\n";
+        fi
     done
 }
 
@@ -363,11 +363,11 @@ echo "| Arch Linux Install Script |"
 echo "-----------------------------"
 
 if ping -c 1 google.com &> /dev/null; then
-  echo Connected
-  install_arch
-  system_type
+    echo Connected
+    install_arch
+    system_type
 else
-  echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s
+    echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s
 fi
 
 install_arch
