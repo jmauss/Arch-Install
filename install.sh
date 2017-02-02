@@ -35,7 +35,7 @@ crypt_swap()
 {
     MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
     echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
-    printf "Swap size (eg. 2G): "
+    printf "Swap size (e.g. 2G): "
 
     while read -r SWAPSIZE ; do
         if [ "$MAX" -gt "$(echo "$SWAPSIZE" | numfmt --from=iec)" ] && [ "$(echo "$SWAPSIZE" | numfmt --from=iec)" -gt 0 ] ; then
@@ -51,7 +51,7 @@ set_swap()
     while [ 1 ]; do
         MAX="$(lsblk -dn -e 2,7,11 -b -o SIZE "$DISK")"
         echo "RAM: "$(free -h | awk 'FNR == 2 {print $2}')
-        read -p "Swap size (in GB): " SWAP;
+        read -p "Swap size in GB (e.g. 2): " SWAP;
         if [ $SWAP ]; then
             break;
         fi
