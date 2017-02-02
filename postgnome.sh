@@ -107,20 +107,14 @@ sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 systemctl enable thermald.service
 systemctl enable gdm.service
 
-mkdir -p /home/$user_name/Builds
-mkdir -p /home/$user_name/.config/cower
-
 cd /home/$user_name/
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/extractGSTcss.sh
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/gnomedark.crx
-cp /usr/share/doc/cower/config .config/cower/
-sed -i 's/#TargetDir =/TargetDir = ~\/Builds\//' .config/cower/config
 chown -R $user_name:wheel gnomedark.crx extractGSTcss.sh .zshrc .config Builds
 chmod u+x extractGSTcss.sh
 cd
 
-pacman -Rns pacaur --noconfirm
 pacman -Rns $(pacman -Qqdt) --noconfirm
 
 rm /home/$user_name/.bash*
