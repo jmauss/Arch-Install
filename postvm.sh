@@ -2,36 +2,34 @@
 
 function ask_for_username()
 {
-while [ 1 ]; do
+    while [ 1 ]; do
         read -p "Enter your name: " name;
         read -p "Enter your username: " user_name;
         if [ $user_name ]; then
-                break;
+            break;
         fi
-done
+    done
 }
 
 function ask_for_password()
 {
-while [ 1 ]; do
+    while [ 1 ]; do
         stty -echo
         read -p "Preferred password: " passwd1; echo
         read -p "Enter the password again: " passwd2; echo
         stty echo
         if [ "$passwd1" == "$passwd2" ]; then
-                break;
+            break;
         else
-                echo "Passwords do not match. Please try again.";
+            echo "Passwords do not match. Please try again.";
         fi
-
-done
+    done
 }
 
-if ping -c 1 google.com &> /dev/null
-then
-  echo Connected
+if ping -c 1 google.com &> /dev/null; then
+    echo Connected
 else
-  echo "Not Connected" && dhcpcd && sleep 2m
+    echo "Not Connected" && dhcpcd && sleep 2m
 fi
 
 ask_for_username
