@@ -57,5 +57,6 @@ rm /home/$user_name/.bash*
 rm -r *
 
 sudo -u $user_name sudo pacman -Rns reflector --noconfirm
+sudo -u $user_name sudo pacman -Rns $(pacman -Qqdt) --noconfirm
 
 shutdown -r now
