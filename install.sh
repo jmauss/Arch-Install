@@ -289,8 +289,7 @@ drive_test()
 {
     DLET="$(echo "$DISK" | cut -c6-8 )"
     DTEST="$(cat /sys/block/$DLET/queue/rotational)"
-    if [ "$DTEST" == '1' ];
-    then
+    if [ "$DTEST" == '1' ]; then
         arch-chroot /mnt systemctl enable fstrim.timer
     else
         printf "Drive is an HDD\n";
