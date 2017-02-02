@@ -169,6 +169,8 @@ system_install()
 
     echo "$HOST_NAME" > /mnt/etc/hostname
     sed -i "/::1/a127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" /mnt/etc/hosts
+    
+    sed -i 's/#Color/Color/' /mnt/etc/pacman.conf
 
     arch-chroot /mnt passwd
 }
