@@ -121,6 +121,7 @@ chmod u+x extractGSTcss.sh
 cd
 
 pacman -Rns pacaur --noconfirm
+pacman -Rns $(pacman -Qqdt) --noconfirm
 
 rm /home/$user_name/.bash*
 rm -r /home/$user_name/.cache/pacaur/
