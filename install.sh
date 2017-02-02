@@ -366,7 +366,7 @@ if ping -c 1 google.com &> /dev/null; then
     install_arch
     system_type
 else
-    echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s
+    echo "Not Connected - starting dhcpcd" && dhcpcd && sleep 30s;
 fi
 
 install_arch
