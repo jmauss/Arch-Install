@@ -261,7 +261,7 @@ security_tools()
         read -p "Will you need security tools? (y,n): " TOOLS;
         if [ "$TOOLS" == 'y' ]; then
             arch-chroot /mnt pacman -S vte3-ng --noconfirm
-            arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap dnsutils whois openssh metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+            arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap dnsutils whois openssh postgresql metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
             arch-chroot /mnt systemctl enable libvirtd.service
             break
         elif [ "$TOOLS" == 'n' ]; then
