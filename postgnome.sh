@@ -103,7 +103,7 @@ sudo -u $user_name pacaur -S vlc --noconfirm --noedit --needed
 sudo -u $user_name pacaur -S la-capitaine-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit --needed
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
-sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
+sed -i 's/elementary/Numix-Circle,elementary/' /usr/share/icons/la-capitaine-icon-theme/index.theme
 systemctl enable thermald.service
 systemctl enable gdm.service
 
