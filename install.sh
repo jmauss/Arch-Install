@@ -277,7 +277,7 @@ printer_drivers()
     while [ 1 ]; do
         read -p "Will you need HP Printer drivers? (y,n): " PRNT;
         if [ "$PRNT" == 'y' ]; then
-            arch-chroot /mnt pacman -S cups cups-pdf hplip --noconfirm
+            arch-chroot /mnt pacman -S cups cups-pdf hplip sane --noconfirm
             arch-chroot /mnt systemctl enable org.cups.cupsd.service
             break
         elif [ "$PRNT" == 'n' ]; then
