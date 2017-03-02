@@ -33,3 +33,4 @@ alias ls='ls --color=auto'
 alias please='sudo $(fc -ln -1)'
 alias sudo='sudo '
 alias weather='curl wttr.in/Sioux_Falls'
+# alias msfconsole="msfconsole -x \"db_connect ${USER}@msf\""
