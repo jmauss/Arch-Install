@@ -243,7 +243,7 @@ virtualbox_utilities()
     while [ 1 ]; do
         read -p "Will you need X support? (y,n): " VMX;
         if [ "$VMX" == 'y' ]; then
-            arch-chroot /mnt pacman -S xf86-input-libinput
+            arch-chroot /mnt pacman -S xf86-input-libinput --noconfirm
             arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
             break
         elif [ "$VMX" == 'n' ]; then
