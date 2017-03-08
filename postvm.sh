@@ -47,8 +47,6 @@ EOPF
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
-mkdir -p /etc/pacman.d/hooks
-
 sudo -u $user_name sudo pacman -Syu htop screenfetch ranger ntfs-3g dosfstools dos2unix unzip p7zip git --noconfirm
 curl -k "https://www.archlinux.org/mirrorlist/?country=US&protocol=http&ip_version=4&use_mirror_status=on" -o /etc/pacman.d/mirrorlist
 sed -i 's/#Server/Server/' /etc/pacman.d/mirrorlist
