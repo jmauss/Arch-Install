@@ -51,6 +51,7 @@ sudo -u $user_name sudo pacman -Syu htop screenfetch ranger ntfs-3g dosfstools d
 curl -k "https://www.archlinux.org/mirrorlist/?country=US&protocol=http&ip_version=4&use_mirror_status=on" -o /etc/pacman.d/mirrorlist
 sed -i 's/#Server/Server/' /etc/pacman.d/mirrorlist
 curl -k https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc -o /home/$user_name/.zshrc
+chown -R $user_name:wheel .zshrc
 rm /home/$user_name/.bash*
 rm -r *
 
