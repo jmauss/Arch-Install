@@ -111,7 +111,7 @@ cd /home/$user_name/
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/extractGSTcss.sh
 curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/gnomedark.crx
-chown -R $user_name:wheel gnomedark.crx extractGSTcss.sh .zshrc .config Builds
+chown -R $user_name:wheel gnomedark.crx extractGSTcss.sh .zshrc
 chmod u+x extractGSTcss.sh
 cd
 
