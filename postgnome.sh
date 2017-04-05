@@ -32,6 +32,8 @@ user_add()
         if pacman -Qs gnome-boxes > /dev/null ; then
             read -p "Will this user need access to Gnome Boxes? (y,n): " GUSR;
             if [ "$GUSR" == 'y' ]; then
+                pacman -S gnome-boxes --noconfirm --needed
+                pacman -Rns virt-manager --noconfirm
                 useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
                 break
             elif [ "$GUSR" == 'n' ]; then
