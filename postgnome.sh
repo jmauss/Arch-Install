@@ -93,20 +93,19 @@ sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm -
 sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtables dnsmasq ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji lib32-fontconfig thermald qt5-styleplugins qt5ct xorg-xprop xorg-xwininfo  --noconfirm --noedit --needed
 
 # Gnome Core
-sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,shell-extensions,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker vino xdg-user-dirs-gtk gedit network-manager-applet --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,shell-extensions,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker totem vino xdg-user-dirs-gtk gedit network-manager-applet --noconfirm --noedit --needed
 
 # Shell Extensions
 sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,weather-git} --noconfirm --noedit --needed
 
 # System Programs
-sudo -u $user_name pacaur -S vlc --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S inkscape --noconfirm --noedit --needed
 
 # System Theming 
-sudo -u $user_name pacaur -S papirus-icon-theme-git numix-circle-icon-theme-git folder-color-nautilus-bzr hardcode-tray sni-qt-patched-git --noconfirm --noedit --needed # paper-icon-theme-git lib32-sni-qt-patched-git
+sudo -u $user_name pacaur -S paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git folder-color-nautilus-bzr hardcode-tray sni-qt-patched-git --noconfirm --noedit --needed # lib32-sni-qt-patched-git
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
-#sed -i 's/Adwaita/Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-sed -i 's/breeze-dark/Numix-Circle,breeze-dark/' /usr/share/icons/Papirus-Dark/index.theme
+sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 systemctl enable thermald.service
 systemctl enable gdm.service
 
