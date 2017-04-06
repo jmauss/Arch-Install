@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function ask_for_username()
+ask_for_username()
 {
     while [ 1 ]; do
         read -p "Enter your name: " name;
@@ -11,7 +11,7 @@ function ask_for_username()
     done
 }
 
-function ask_for_password()
+ask_for_password()
 {
     while [ 1 ]; do
         stty -echo
@@ -26,7 +26,7 @@ function ask_for_password()
     done
 }
 
-function user_add()
+user_add()
 {
     while [ 1 ]; do
         if pacman -Qs qemu > /dev/null ; then
