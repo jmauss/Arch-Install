@@ -29,7 +29,7 @@ function ask_for_password()
 function user_add()
 {
     while [ 1 ]; do
-        if pacman -Qs gnome-boxes > /dev/null ; then
+        if pacman -Qs qemu > /dev/null ; then
             read -p "Will this user need access to Gnome Boxes? (y,n): " GUSR;
             if [ "$GUSR" == 'y' ]; then
                 pacman -S gnome-boxes --noconfirm --needed
