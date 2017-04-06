@@ -26,7 +26,7 @@ function ask_for_password()
     done
 }
 
-user_add()
+function user_add()
 {
     while [ 1 ]; do
         if pacman -Qs gnome-boxes > /dev/null ; then
