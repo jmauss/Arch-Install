@@ -96,7 +96,7 @@ sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtabl
 sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,shell-extensions,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker totem vino xdg-user-dirs-gtk gedit network-manager-applet --noconfirm --noedit --needed
 
 # Shell Extensions
-sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,weather-git} --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,remove-dropdown-arrows-git,weather-git} --noconfirm --noedit --needed # sound-output-device-chooser-git freon-git
 
 # System Programs
 sudo -u $user_name pacaur -S inkscape --noconfirm --noedit --needed
