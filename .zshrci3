@@ -34,4 +34,4 @@ alias please='sudo $(fc -ln -1)'
 alias sudo='sudo '
 alias weather='curl wttr.in/Sioux_Falls'
 # alias msfconsole="msfconsole -x \"db_connect ${USER}@msf\""
-# alias mirror-update="reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c "United States" -f 5 -l 5"
+# alias mirror-update="sudo reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c \"United States\" -f 5 -l 5"
