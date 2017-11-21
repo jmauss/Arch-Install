@@ -206,7 +206,7 @@ cryptloader_bios()
 
 cryptloader_uefi()
 {
-    sed -i 's/HOOKS="base udev autodetect modconf block filesystems/HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
+    sed -i 's/base udev autodetect modconf block filesystems/base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
     
     arch-chroot /mnt pacman -S intel-ucode --noconfirm
