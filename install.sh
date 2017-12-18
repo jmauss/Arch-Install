@@ -342,6 +342,7 @@ system_type()
             printer_drivers
             drive_test
             umount -R /mnt
+            sleep 5
             shutdown -r now
         elif [ "$STYPE" == '2' ]; then
             desktop_utilities
@@ -349,11 +350,13 @@ system_type()
             printer_drivers
             drive_test
             umount -R /mnt
+            sleep 5
             shutdown -r now
         elif [ "$STYPE" == '3' ]; then
             virtualbox_utilities
             security_tools
             umount -R /mnt
+            sleep 5
             shutdown -h now
         else
             printf "Invalid input! Please try again\n";
