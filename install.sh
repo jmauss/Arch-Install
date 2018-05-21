@@ -171,7 +171,7 @@ system_install()
     sed -i "/::1/a127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" /mnt/etc/hosts
     
     sed -i 's/#Color/Color/' /mnt/etc/pacman.conf
-    sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+    sed -i "/\[multilib\]/,/Include/"'s/^#//' /mnt/etc/pacman.conf
 
     arch-chroot /mnt passwd
 }
