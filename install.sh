@@ -168,7 +168,7 @@ system_install()
     echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 
     echo "$HOST_NAME" > /mnt/etc/hostname
-    sed -i "/::1/a127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" /mnt/etc/hosts
+    sed -i "$ a\127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" /mnt/etc/hosts
     
     sed -i 's/#Color/Color/' /mnt/etc/pacman.conf
     sed -i "/\[multilib\]/,/Include/"'s/^#//' /mnt/etc/pacman.conf
