@@ -173,6 +173,7 @@ system_install()
     sed -i 's/#Color/Color/' /mnt/etc/pacman.conf
     sed -i "/\[multilib\]/,/Include/"'s/^#//' /mnt/etc/pacman.conf
 
+    echo "Please enter a password for root"
     arch-chroot /mnt passwd
 }
 
