@@ -219,10 +219,11 @@ cryptloader_uefi()
 
 laptop_utilities()
 {
-    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp networkmanager mesa xf86-input-libinput xorg-server --noconfirm
+    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp bluez bluez-utils networkmanager mesa xf86-input-libinput xorg-server --noconfirm
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl disable systemd-rfkill.service
+    arch-chroot /mnt systemctl enable bluetooth.service
     
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/30-touchpad.conf -o /mnt/etc/X11/xorg.conf.d/30-touchpad.conf
     
