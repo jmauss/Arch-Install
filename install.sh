@@ -256,38 +256,6 @@ virtualbox_utilities()
     done
 }
 
-security_tools()
-{
-    while [ 1 ]; do
-        read -p "Will you need security tools? (y,n): " TOOLS;
-        if [ "$TOOLS" == 'y' ]; then
-            arch-chroot /mnt pacman -S qemu virt-manager ebtables dnsmasq testdisk nmap bind-tools whois openssh postgresql metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
-            arch-chroot /mnt systemctl enable libvirtd.service
-            break
-        elif [ "$TOOLS" == 'n' ]; then
-            break
-        else
-            printf "Invalid input! Please try again\n";
-        fi
-    done
-}
-
-printer_drivers()
-{
-    while [ 1 ]; do
-        read -p "Will you need HP Printer drivers? (y,n): " PRNT;
-        if [ "$PRNT" == 'y' ]; then
-            arch-chroot /mnt pacman -S cups cups-pdf hplip sane --noconfirm
-            arch-chroot /mnt systemctl enable org.cups.cupsd.service
-            break
-        elif [ "$PRNT" == 'n' ]; then
-            break
-        else
-            printf "Invalid input! Please try again\n";
-        fi
-    done
-}
-
 drive_test()
 {
     DLET="$(echo "$DISK" | cut -c6-8 )"
@@ -338,16 +306,12 @@ system_type()
         read -p "Is this sytem a Laptop(1), Desktop(2), or VM(3): " STYPE;
         if [ "$STYPE" == '1' ]; then
             laptop_utilities
-            security_tools
-            printer_drivers
             drive_test
             umount -R /mnt
             sleep 5
             shutdown -r now
         elif [ "$STYPE" == '2' ]; then
             desktop_utilities
-            security_tools
-            printer_drivers
             drive_test
             umount -R /mnt
             sleep 5
