@@ -158,7 +158,7 @@ system_install()
 
     genfstab -pU /mnt >> /mnt/etc/fstab
 
-    arch-chroot /mnt pacman -S reflector --noconfirm
+    arch-chroot /mnt pacman -S reflector --noconfirm --needed
     arch-chroot /mnt reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c "United States" -f 5 -l 5
     arch-chroot /mnt rm /etc/localtime
     arch-chroot /mnt ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
@@ -180,14 +180,14 @@ system_install()
 bootloader_bios()
 {
     sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-    arch-chroot /mnt pacman -Syu intel-ucode grub os-prober --noconfirm
+    arch-chroot /mnt pacman -Syu intel-ucode grub os-prober --noconfirm --needed
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 bootloader_uefi()
 {
-    arch-chroot /mnt pacman -Syu intel-ucode --noconfirm
+    arch-chroot /mnt pacman -Syu intel-ucode --noconfirm --needed
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/arch.conf -o /mnt/boot/loader/entries/arch.conf
     sed -i "s/INSERTHERE/$DEVID/" /mnt/boot/loader/entries/arch.conf
@@ -200,7 +200,7 @@ cryptloader_bios()
     arch-chroot /mnt mkinitcpio -p linux
     
     sed -i "s/use_lvmetad = 1/use_lvmetad = 0/" /mnt/etc/lvm/lvm.conf
-    arch-chroot /mnt pacman -Syu intel-ucode grub os-prober --noconfirm
+    arch-chroot /mnt pacman -Syu intel-ucode grub os-prober --noconfirm --needed
     arch-chroot /mnt grub-install --target=i386-pc --recheck "$GRUB"
     sed -i "s#GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$DEVIDC:luks\"#" /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -211,7 +211,7 @@ cryptloader_uefi()
     sed -i 's/base udev autodetect modconf block filesystems/base udev autodetect modconf block encrypt lvm2 filesystems/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
     
-    arch-chroot /mnt pacman -Syu intel-ucode --noconfirm
+    arch-chroot /mnt pacman -Syu intel-ucode --noconfirm --needed
     arch-chroot /mnt bootctl --path=/boot install
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/cryptarch.conf -o /mnt/boot/loader/entries/arch.conf
     sed -i "s/INSERTHERE/$DEVIDC/" /mnt/boot/loader/entries/arch.conf
@@ -220,7 +220,7 @@ cryptloader_uefi()
 
 laptop_utilities()
 {
-    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp bluez bluez-utils networkmanager mesa xf86-input-libinput xorg-server --noconfirm
+    arch-chroot /mnt pacman -S iw wpa_supplicant dialog tlp bluez bluez-utils networkmanager mesa xf86-input-libinput xorg-server --noconfirm --needed
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl disable systemd-rfkill.service
@@ -234,22 +234,22 @@ laptop_utilities()
 
 desktop_utilities()
 {
-    arch-chroot /mnt pacman -S nvidia nvidia-libgl networkmanager xf86-input-libinput nvidia-settings --noconfirm
+    arch-chroot /mnt pacman -S nvidia nvidia-libgl networkmanager xf86-input-libinput nvidia-settings --noconfirm --needed
     arch-chroot /mnt systemctl enable NetworkManager.service
 }
 
 virtualbox_utilities()
 {
-    arch-chroot /mnt pacman -S virtualbox-guest-modules-arch networkmanager --noconfirm
+    arch-chroot /mnt pacman -S virtualbox-guest-modules-arch networkmanager --noconfirm --needed
     arch-chroot /mnt systemctl enable NetworkManager.service
     while [ 1 ]; do
         read -p "Will you need X support? (y,n): " VMX;
         if [ "$VMX" == 'y' ]; then
-            arch-chroot /mnt pacman -S xf86-input-libinput --noconfirm
-            arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm
+            arch-chroot /mnt pacman -S xf86-input-libinput --noconfirm --needed
+            arch-chroot /mnt pacman -S virtualbox-guest-utils --noconfirm --needed
             break
         elif [ "$VMX" == 'n' ]; then
-            arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm
+            arch-chroot /mnt pacman -S virtualbox-guest-utils-nox --noconfirm --needed
             break
         else
             printf "Invalid input! Please try again\n";
@@ -310,13 +310,13 @@ system_type()
             drive_test
             umount -R /mnt
             sleep 5
-            shutdown -r now
+            shutdown -h now
         elif [ "$STYPE" == '2' ]; then
             desktop_utilities
             drive_test
             umount -R /mnt
             sleep 5
-            shutdown -r now
+            shutdown -h now
         elif [ "$STYPE" == '3' ]; then
             virtualbox_utilities
             umount -R /mnt
