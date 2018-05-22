@@ -26,29 +26,6 @@ ask_for_password()
     done
 }
 
-user_add()
-{
-    while [ 1 ]; do
-        if pacman -Qs qemu > /dev/null ; then
-            read -p "Will this user need access to Gnome Boxes? (y,n): " GUSR;
-            if [ "$GUSR" == 'y' ]; then
-                pacman -S gnome-boxes --noconfirm --needed
-                pacman -Rns virt-manager --noconfirm
-                useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
-                break
-            elif [ "$GUSR" == 'n' ]; then
-                useradd -c $name -m -g wheel -s /bin/zsh $user_name
-                break
-            else
-                printf "Invalid input! Please try again\n";
-            fi
-        else
-            useradd -c $name -m -g wheel -s /bin/zsh $user_name
-            break
-        fi
-    done
-}
-
 if ping -c 1 google.com &> /dev/null; then
     echo Connected
 else
@@ -61,7 +38,7 @@ ask_for_password
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
 pacman -Syu zsh zsh-completions --noconfirm
 
-user_add
+useradd -c $name -m -g wheel -s /bin/zsh $user_name
 
 passwd $user_name << EOPF
 $passwd1
