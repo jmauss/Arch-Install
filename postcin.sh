@@ -80,7 +80,7 @@ sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=slick-greeter/' /et
 systemctl enable thermald.service
 systemctl enable lightdm.service
 
-curl -o https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc /home/jmauss/.zshrc
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc -o /home/jmauss/.zshrc
 chown -R $user_name:wheel /home/jmauss/.zshrc
 
 sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
