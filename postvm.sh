@@ -26,6 +26,21 @@ ask_for_password()
     done
 }
 
+security_tools()
+{
+    while [ 1 ]; do
+        read -p "Will you need security tools? (y,n): " TOOLS;
+        if [ "$TOOLS" == 'y' ]; then
+            arch-chroot /mnt pacman -S nmap bind-tools whois openssh postgresql metasploit wireshark-cli john aircrack-ng hashcat hping --noconfirm
+            break
+        elif [ "$TOOLS" == 'n' ]; then
+            break
+        else
+            printf "Invalid input! Please try again\n";
+        fi
+    done
+}
+
 if ping -c 1 google.com &> /dev/null; then
     echo Connected
 else
@@ -52,6 +67,9 @@ curl -k "https://www.archlinux.org/mirrorlist/?country=US&protocol=http&ip_versi
 sed -i 's/#Server/Server/' /etc/pacman.d/mirrorlist
 curl -k https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc -o /home/$user_name/.zshrc
 chown -R $user_name:wheel .zshrc
+
+security_tools
+
 rm /home/$user_name/.bash*
 rm -r *
 
