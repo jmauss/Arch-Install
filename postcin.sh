@@ -81,7 +81,7 @@ systemctl enable thermald.service
 systemctl enable lightdm.service
 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc -o /home/jmauss/.zshrc
-chown -R $user_name:wheel /home/jmauss/.zshrc
+chown $user_name:wheel /home/jmauss/.zshrc
 
 sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
 sudo -u $user_name pikaur -Sc --noconfirm
