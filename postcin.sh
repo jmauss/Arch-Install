@@ -66,13 +66,13 @@ sudo -u $user_name pikaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm -
 # Cinnamon Core
 sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --noedit --needed
 
-sudo -u $user_name pikaur -S cinnamon lightdm-settings eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
+sudo -u $user_name pikaur -S cinnamon lightdm-settings xorg-xrandr eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
 
 # System Programs
-#sudo -u $user_name pikaur -S  --noconfirm --noedit --needed
+sudo -u $user_name pikaur -S  plank --noconfirm --noedit --needed
 
 # System Theming 
-sudo -u $user_name pikaur -S paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --noedit --needed
+sudo -u $user_name pikaur -S arc-gtk-theme paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --noedit --needed
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
