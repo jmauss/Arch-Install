@@ -228,7 +228,7 @@ laptop_utilities()
     
     curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/30-touchpad.conf -o /mnt/etc/X11/xorg.conf.d/30-touchpad.conf
     
-    sed -i "s/MODULES=\"\"/MODULES=\"i915\"/" /mnt/etc/mkinitcpio.conf
+    sed -i 's/MODULES=()/MODULES=(i915)/' /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 }
 
