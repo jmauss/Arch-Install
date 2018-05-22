@@ -69,48 +69,58 @@ $passwd2
 EOPF
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
 pacman -Syu git --noconfirm --needed
 cd /tmp
 
-sudo -u $user_name git clone https://aur.archlinux.org/pikaur.git
-cd pikaur/
+sudo -u $user_name git clone https://aur.archlinux.org/cower.git
+cd cower/
+sudo -u $user_name makepkg -sric --noconfirm --skippgpcheck
+cd /tmp
+
+sudo -u $user_name git clone https://aur.archlinux.org/pacaur.git
+cd pacaur/
 sudo -u $user_name makepkg -sric --noconfirm
 cd
 
-sudo -u $user_name pikaur -Syu --noedit --noconfirm
-
-# System Core
-sudo -u $user_name pikaur -S downgrade ntfs-3g dosfstools unzip p7zip thermald --noconfirm --noedit --needed
+sudo -u $user_name pacaur -Syu --noedit --noconfirm
 
 # Audio Drivers
-sudo -u $user_name pikaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
 
-# Cinnamon Core
-sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --noedit --needed
+# System Core
+sudo -u $user_name pacaur -S downgrade qt4 ntfs-3g dosfstools unzip p7zip ebtables dnsmasq ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji lib32-fontconfig thermald qt5-styleplugins qt5ct xorg-xprop xorg-xwininfo  --noconfirm --noedit --needed
 
-sudo -u $user_name pikaur -S cinnamon lightdm-settings eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
+# Gnome Core
+sudo -u $user_name pacaur -S adwaita-icon-theme baobab dconf-editor eog gdm gnome-{backgrounds,calculator,control-center,disk-utility,shell-extensions,font-viewer,keyring,screensaver,screenshot,settings-daemon,system-log,system-monitor,terminal,tweak-tool,user-share} grilo-plugins gtk3-print-backends gucharmap gvfs gvfs-{afc,goa,google,gphoto2,mtp,nfs,smb} mousetweaks nautilus sushi tracker totem vino xdg-user-dirs-gtk gedit network-manager-applet --noconfirm --noedit --needed
+
+# Shell Extensions
+sudo -u $user_name pacaur -S gnome-shell-extension-{activities-config,topicons-plus-git,dash-to-dock-git,remove-dropdown-arrows-git,weather-git} --noconfirm --noedit --needed # sound-output-device-chooser-git freon-git
 
 # System Programs
-#sudo -u $user_name pikaur -S  --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S inkscape --noconfirm --noedit --needed
 
 # System Theming 
-sudo -u $user_name pikaur -S paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --noedit --needed
+sudo -u $user_name pacaur -S paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git folder-color-nautilus-bzr hardcode-tray sni-qt-patched-git --noconfirm --noedit --needed # lib32-sni-qt-patched-git
 
-sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
+sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
 systemctl enable thermald.service
-systemctl enable lightdm.service
+systemctl enable gdm.service
 
-curl -o https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc /home/jmauss/.zshrc
-chown -R $user_name:wheel /home/jmauss/.zshrc
+cd /home/$user_name/
+curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc
+curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/extractGSTcss.sh
+curl -O https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/gnomedark.crx
+chown -R $user_name:wheel gnomedark.crx extractGSTcss.sh .zshrc
+chmod u+x extractGSTcss.sh
+cd
 
-pikaur -Rns $(pikaur -Qqdt) --noconfirm
-pikaur -Sc --noconfirm
+pacman -Rns $(pacman -Qqdt) --noconfirm
 
 rm /home/$user_name/.bash*
-rm -r /home/$user_name/.cache/pikaur/
+rm -r /home/$user_name/.cache/pacaur/
 rm -r *
 
-shutdown -h now
+shutdown -r now
