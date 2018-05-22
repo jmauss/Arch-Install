@@ -110,7 +110,6 @@ sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
 sudo -u $user_name pikaur -Sc --noconfirm
 
 rm /home/$user_name/.bash*
-rm -r /home/$user_name/.cache/pikaur/
 rm -r *
 
 shutdown -h now
