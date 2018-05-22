@@ -36,7 +36,7 @@ ask_for_username
 ask_for_password
 
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
-pacman -Syu zsh zsh-completions --noconfirm
+pacman -Syu zsh zsh-completions --noconfirm --needed
 
 useradd -c $name -m -g wheel -s /bin/zsh $user_name
 
@@ -52,10 +52,10 @@ cd /tmp
 
 sudo -u $user_name git clone https://aur.archlinux.org/pikaur.git
 cd pikaur/
-sudo -u $user_name makepkg -sric --noconfirm
+sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
-sudo -u $user_name pikaur -Syu --noedit --noconfirm
+sudo -u $user_name pikaur -Syu --noedit --noconfirm --needed
 
 # System Core
 sudo -u $user_name pikaur -S downgrade ntfs-3g dosfstools unzip p7zip thermald --noconfirm --noedit --needed
