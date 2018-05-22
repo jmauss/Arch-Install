@@ -99,15 +99,15 @@ sudo -u $user_name pikaur -S paper-icon-theme-git papirus-icon-theme-git numix-c
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
+sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=slick-greeter/' /etc/lightdm/lightdm.conf
 systemctl enable thermald.service
 systemctl enable lightdm.service
 
 curl -o https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc /home/jmauss/.zshrc
 chown -R $user_name:wheel /home/jmauss/.zshrc
 
-pikaur -Rns $(pikaur -Qqdt) --noconfirm
-pikaur -Sc --noconfirm
+sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
+sudo -u $user_name pikaur -Sc --noconfirm
 
 rm /home/$user_name/.bash*
 rm -r /home/$user_name/.cache/pikaur/
