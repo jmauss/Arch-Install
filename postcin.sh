@@ -66,7 +66,7 @@ sudo -u $user_name pikaur -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm -
 # Cinnamon Core
 sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --noedit --needed
 
-sudo -u $user_name pikaur -S cinnamon lightdm-settings xorg-xrandr eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
+sudo -u $user_name pikaur -S cinnamon gtkhash-nemo nemo-fileroller lightdm-settings xorg-xrandr eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
 
 # System Programs
 sudo -u $user_name pikaur -S plank --noconfirm --noedit --needed
