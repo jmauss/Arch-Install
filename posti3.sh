@@ -57,17 +57,17 @@ cd
 
 sudo -u $user_name pikaur -Syu --noedit --noconfirm --needed
 
-sudo -u $user_name pikaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
-#sudo -u $user_name pikaur -S udevil mpv qt4 feh compton htop screenfetch ranger lxappearance xdg-user-dirs --noconfirm --noedit
-sudo -u $user_name pikaur -S ntfs-3g dosfstools exfat-utils unzip p7zip xorg-apps i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
-sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-extra paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
-sudo -u $user_name pikaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
+sudo -u $user_name pikaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noedit --noconfirm --needed
+#sudo -u $user_name pikaur -S udevil mpv qt4 feh compton htop screenfetch ranger lxappearance xdg-user-dirs --noedit --noconfirm --needed
+sudo -u $user_name pikaur -S ntfs-3g dosfstools exfat-utils unzip p7zip xorg-apps i3-gaps i3blocks i3lock-fancy-git --noedit --noconfirm --needed
+sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-extra paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noedit --noconfirm --needed
+sudo -u $user_name pikaur -S thermald termite rofi qt5-styleplugins qt5ct --noedit --noconfirm --needed
 
 # For laptop installation (battery,)
-sudo -u $user_name pikaur -S acpi --noconfirm --noedit
+sudo -u $user_name pikaur -S acpi --noedit --noconfirm --needed
 
 # System Utilities
-sudo -u $user_name pikaur -S downgrade --noconfirm --noedit
+sudo -u $user_name pikaur -S downgrade --noedit --noconfirm --needed
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
