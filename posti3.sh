@@ -26,27 +26,6 @@ ask_for_password()
     done
 }
 
-user_add()
-{
-    while [ 1 ]; do
-        if pacman -Qs qemu > /dev/null ; then
-            read -p "Will this user need access to QEMU? (y,n): " QUSR;
-            if [ "$QUSR" == 'y' ]; then
-                useradd -c $name -m -g wheel -G libvirt -s /bin/zsh $user_name
-                break
-            elif [ "$QUSR" == 'n' ]; then
-                useradd -c $name -m -g wheel -s /bin/zsh $user_name
-                break
-            else
-                printf "Invalid input! Please try again\n";
-            fi
-        else
-            useradd -c $name -m -g wheel -s /bin/zsh $user_name
-            break
-        fi
-    done
-}
-
 if ping -c 1 google.com &> /dev/null; then
     echo Connected
 else
@@ -57,9 +36,9 @@ ask_for_username
 ask_for_password
 
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
-pacman -Syu zsh zsh-completions --noconfirm
+pacman -Syu zsh zsh-completions --noconfirm --needed
 
-user_add
+useradd -c $name -m -g wheel -s /bin/zsh $user_name
 
 passwd $user_name << EOPF
 $passwd1
@@ -67,37 +46,32 @@ $passwd2
 EOPF
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
 pacman -Syu git --noconfirm --needed
 cd /tmp
 
-sudo -u $user_name git clone https://aur.archlinux.org/cower.git
-cd cower/
-sudo -u $user_name makepkg -sric --noconfirm --skippgpcheck
-cd /tmp
-
-sudo -u $user_name git clone https://aur.archlinux.org/pacaur.git
-cd pacaur/
-sudo -u $user_name makepkg -sric --noconfirm
+sudo -u $user_name git clone https://aur.archlinux.org/pikaur.git
+cd pikaur/
+sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
-sudo -u $user_name pacaur -Syu --noedit --noconfirm
+sudo -u $user_name pikaur -Syu --noedit --noconfirm --needed
 
-sudo -u $user_name pacaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
-sudo -u $user_name pacaur -S udevil mpv qt4 feh compton htop screenfetch ranger lxappearance xdg-user-dirs ntfs-3g dosfstools unzip p7zip xorg-apps i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
-sudo -u $user_name pacaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-standard paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
-sudo -u $user_name pacaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
+sudo -u $user_name pikaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit
+#sudo -u $user_name pikaur -S udevil mpv qt4 feh compton htop screenfetch ranger lxappearance xdg-user-dirs --noconfirm --noedit
+sudo -u $user_name pikaur -S ntfs-3g dosfstools exfat-utils unzip p7zip xorg-apps i3-gaps i3blocks i3lock-fancy-git --noconfirm --noedit
+sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-extra paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noconfirm --noedit
+sudo -u $user_name pikaur -S thermald termite rofi qt5-styleplugins qt5ct --noconfirm --noedit
 
 # For laptop installation (battery,)
-sudo -u $user_name pacaur -S acpi --noconfirm --noedit
+sudo -u $user_name pikaur -S acpi --noconfirm --noedit
 
 # System Utilities
-sudo -u $user_name pacaur -S downgrade --noconfirm --noedit
+sudo -u $user_name pikaur -S downgrade --noconfirm --noedit
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-systemctl enable devmon@$user_name.service
+#systemctl enable devmon@$user_name.service
 systemctl enable thermald.service
 
 mkdir -p /home/$user_name/Scripts
@@ -115,20 +89,16 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zprofile -o /
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/termite/config -o /home/$user_name/.config/termite/config
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0/gtk.css -o /home/$user_name/.config/gtk-3.0/gtk.css
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/scripts/playing -o /home/$user_name/.config/i3blocks/scripts/playing
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/scripts/sp -o /home/$user_name/.config/i3blocks/scripts/sp
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
 chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .config Scripts
 chmod u+x Scripts/i3user.sh
-cd .config/i3blocks/scripts/
-chmod u+x playing sp
 cd
 
-pacman -Rns $(pacman -Qqdt) --noconfirm
+sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
+sudo -u $user_name pikaur -Sc --noconfirm
 
 rm /home/$user_name/.bash*
-rm -r /home/$user_name/.cache/pacaur/
-rm -r *
+rm -r 
 
 shutdown -r now
