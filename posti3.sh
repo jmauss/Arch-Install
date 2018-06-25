@@ -3,7 +3,6 @@
 ask_for_username()
 {
     while [ 1 ]; do
-        read -p "Enter your name: " name;
         read -p "Enter your username: " user_name;
         if [ $user_name ]; then
             break;
@@ -78,14 +77,17 @@ sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 systemctl enable thermald.service
 
+mkdir -p /mnt/usb
+mkdir -p /home/$user_name/Downloads
+mkdir -p /home/$user_name/Images
 mkdir -p /home/$user_name/Scripts
 mkdir -p /home/$user_name/.config/termite
 mkdir -p /home/$user_name/.config/i3blocks/scripts
 mkdir -p /home/$user_name/.config/i3
 mkdir -p /home/$user_name/.config/gtk-3.0
 
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3user.sh -o /home/$user_name/Scripts/i3user.sh
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3screens.sh -o /home/$user_name/Scripts/i3screens.sh
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.Xresources -o /home/$user_name/.Xresources
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.xinitrc -o /home/$user_name/.xinitrc
@@ -95,8 +97,8 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
-chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .config Scripts
-chmod u+x Scripts/i3user.sh
+chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .config Downloads Images Scripts 
+chmod u+x Scripts/i3screens.sh
 cd
 
 sudo -u $user_name yay -Rns $(yay -Qqdt) --noconfirm
