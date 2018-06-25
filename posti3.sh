@@ -36,7 +36,7 @@ ask_for_username
 ask_for_password
 
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
-pacman -Syu zsh zsh-completions --noconfirm --needed
+pacman -Syu zsh zsh-completions git --noconfirm --needed
 
 useradd -c $name -m -g wheel -s /bin/zsh $user_name
 
@@ -47,31 +47,35 @@ EOPF
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
-pacman -Syu git --noconfirm --needed
 cd /tmp
-
-sudo -u $user_name git clone https://aur.archlinux.org/pikaur.git
-cd pikaur/
+sudo -u $user_name git clone https://aur.archlinux.org/yay.git
+cd yay/
 sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
-sudo -u $user_name pikaur -Syu --noedit --noconfirm --needed
+sudo -u $user_name yay -Syu --noedit --noconfirm --needed
 
-sudo -u $user_name pikaur -S xorg-xinit xautolock alsa-utils pulseaudio pulseaudio-alsa --noedit --noconfirm --needed
-#sudo -u $user_name pikaur -S udevil mpv qt4 feh compton htop screenfetch ranger lxappearance xdg-user-dirs --noedit --noconfirm --needed
-sudo -u $user_name pikaur -S ntfs-3g dosfstools exfat-utils unzip p7zip xorg-apps i3-gaps i3blocks i3lock-fancy-multimonitor-git --noedit --noconfirm --needed
-sudo -u $user_name pikaur -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome gnome-themes-extra paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noedit --noconfirm --needed
-sudo -u $user_name pikaur -S thermald termite rofi qt5-styleplugins qt5ct --noedit --noconfirm --needed
+# System Core
+sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noedit --noconfirm --needed # Audio
+sudo -u $user_name yay -S ntfs-3g dosfstools exfat-utils unzip p7zip --noedit --noconfirm --needed # Files/Filesystems
+sudo -u $user_name yay -S thermald acpi --noedit --noconfirm --needed # Hardware monitoring
 
-# For laptop installation (battery,)
-sudo -u $user_name pikaur -S acpi --noedit --noconfirm --needed
+# i3 Core
+sudo -u $user_name yay -S xorg-xinit xautolock xorg-apps --noedit --noconfirm --needed # Xorg utils
+sudo -u $user_name yay -S i3-gaps i3blocks i3lock-fancy-multimonitor-git --noedit --noconfirm --needed # i3 specific
+sudo -u $user_name yay -S feh compton termite rofi --noedit --noconfirm --needed # i3 utils
 
 # System Utilities
-sudo -u $user_name pikaur -S downgrade --noedit --noconfirm --needed
+sudo -u $user_name yay -S downgrade htop screenfetch ranger --noedit --noconfirm --needed # Command line
+sudo -u $user_name yay -S mpv --noedit --noconfirm --needed # Graphical
+
+# Themeing
+sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance --noedit --noconfirm --needed # Theme engines
+sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noedit --noconfirm --needed # Fonts
+sudo -u $user_name yay -S gnome-themes-extra paper-icon-theme-git papirus-icon-theme-git numix-circle-icon-theme-git --noedit --noconfirm --needed # Themes
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-#systemctl enable devmon@$user_name.service
 systemctl enable thermald.service
 
 mkdir -p /home/$user_name/Scripts
@@ -95,10 +99,10 @@ chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .conf
 chmod u+x Scripts/i3user.sh
 cd
 
-sudo -u $user_name pikaur -Rns $(pikaur -Qqdt) --noconfirm
-sudo -u $user_name pikaur -Sc --noconfirm
+sudo -u $user_name yay -Rns $(yay -Qqdt) --noconfirm
+sudo -u $user_name yay -Sc --noconfirm
 
 rm /home/$user_name/.bash*
 rm -r 
 
-shutdown -r now
+shutdown -h now
