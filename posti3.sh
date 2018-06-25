@@ -37,7 +37,7 @@ ask_for_password
 echo vm.swappiness=10 > /etc/sysctl.d/99-sysctl.conf
 pacman -Syu zsh zsh-completions git --noconfirm --needed
 
-useradd -c $name -m -g wheel -s /bin/zsh $user_name
+useradd -m -g wheel -s /bin/zsh $user_name
 
 passwd $user_name << EOPF
 $passwd1
@@ -45,6 +45,7 @@ $passwd2
 EOPF
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
 cd /tmp
 sudo -u $user_name git clone https://aur.archlinux.org/yay.git
