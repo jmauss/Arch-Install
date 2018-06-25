@@ -45,7 +45,6 @@ $passwd2
 EOPF
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
 cd /tmp
 sudo -u $user_name git clone https://aur.archlinux.org/yay.git
