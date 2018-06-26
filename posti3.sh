@@ -81,6 +81,7 @@ mkdir -p /mnt/usb
 mkdir -p /home/$user_name/Downloads
 mkdir -p /home/$user_name/Images
 mkdir -p /home/$user_name/Scripts
+mkdir -p /home/$user_name/Files
 mkdir -p /home/$user_name/.config/termite
 mkdir -p /home/$user_name/.config/i3blocks/scripts
 mkdir -p /home/$user_name/.config/i3
@@ -98,11 +99,11 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
-chown -R $user_name:wheel i3dark.crx .zshrc .xinitrc .zprofile .config Downloads Images Scripts 
+chown -R $user_name:wheel i3dark.crx .zshrc .xinitrc .zprofile .config Downloads Images Scripts Files
 chmod u+x Scripts/i3screens.sh
 cd
 
-sudo -u $user_name aurman -Rns $(aurman -Qqdt) --noconfirm
+sudo -u $user_name aurman -Rns $(sudo -u $user_name aurman -Qqdt) --noconfirm
 sudo -u $user_name aurman -Sc --noconfirm
 
 rm /home/$user_name/.bash*
