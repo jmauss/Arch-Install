@@ -90,7 +90,6 @@ mkdir -p /home/$user_name/.config/rofi
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3screens.sh -o /home/$user_name/Scripts/i3screens.sh
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.Xresources -o /home/$user_name/.Xresources
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.xinitrc -o /home/$user_name/.xinitrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zprofile -o /home/$user_name/.zprofile 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/termite/config -o /home/$user_name/.config/termite/config
@@ -99,7 +98,7 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
-chown -R $user_name:wheel i3dark.crx .zshrc .Xresources .xinitrc .zprofile .config Downloads Images Scripts 
+chown -R $user_name:wheel i3dark.crx .zshrc .xinitrc .zprofile .config Downloads Images Scripts 
 chmod u+x Scripts/i3screens.sh
 cd
 
