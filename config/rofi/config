@@ -1,4 +1,4 @@
-rofi.modi:		drun,run,window
+rofi.modi:		drun,run,ssh,window
 rofi.lines:		5
 rofi.eh:		1
 rofi.line-margin:	10
