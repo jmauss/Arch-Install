@@ -85,6 +85,7 @@ mkdir -p /home/$user_name/.config/termite
 mkdir -p /home/$user_name/.config/i3blocks/scripts
 mkdir -p /home/$user_name/.config/i3
 mkdir -p /home/$user_name/.config/gtk-3.0
+mkdir -p /home/$user_name/.config/rofi
 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/i3screens.sh -o /home/$user_name/Scripts/i3screens.sh
@@ -93,6 +94,7 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.Xresources -o
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.xinitrc -o /home/$user_name/.xinitrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zprofile -o /home/$user_name/.zprofile 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/termite/config -o /home/$user_name/.config/termite/config
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/rofi/config -o /home/$user_name/.config/rofi/config
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0/gtk.css -o /home/$user_name/.config/gtk-3.0/gtk.css
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
