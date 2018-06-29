@@ -56,8 +56,10 @@ sudo -u $user_name aurman -Syu --noedit --noconfirm --needed
 
 # System Core
 sudo -u $user_name aurman -S alsa-utils pulseaudio pulseaudio-alsa --noedit --noconfirm --needed # Audio
-sudo -u $user_name aurman -S ntfs-3g dosfstools exfat-utils unzip p7zip --noedit --noconfirm --needed # Files/Filesystems
+sudo -u $user_name aurman -S ntfs-3g dosfstools exfat-utils unzip p7zip udevil --noedit --noconfirm --needed # Files/Filesystems
+systemctl enable devmon@$user_name.service
 sudo -u $user_name aurman -S thermald acpi --noedit --noconfirm --needed # Hardware monitoring
+systemctl enable thermald.service
 
 # i3 Core
 sudo -u $user_name aurman -S xorg-xinit xautolock xorg-apps --noedit --noconfirm --needed # Xorg utils
@@ -75,7 +77,6 @@ sudo -u $user_name aurman -S gnome-themes-extra paper-icon-theme-git papirus-ico
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-systemctl enable thermald.service
 
 mkdir -p /mnt/usb
 mkdir -p /home/$user_name/Downloads
