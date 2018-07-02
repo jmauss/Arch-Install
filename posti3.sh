@@ -78,7 +78,6 @@ sudo -u $user_name aurman -S arc-gtk-theme gnome-themes-extra paper-icon-theme-g
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
 
-mkdir -p /mnt/usb
 mkdir -p /home/$user_name/Downloads
 mkdir -p /home/$user_name/Images
 mkdir -p /home/$user_name/Scripts
