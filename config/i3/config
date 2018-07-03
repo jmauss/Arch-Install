@@ -190,12 +190,11 @@ exec --no-startup-id xset dpms 900
 exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker "i3lock-fancy -b=0x8 -n"
 
 exec --no-startup-id compton -f --vsync opengl --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
-exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/BLACK.jpg
+#exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/BLACK.jpg
 
 # Personal Key Bindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +10%"
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -10%"
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym $mod+c exec chromium
-bindsym $mod+m workspace $ws10; exec --no-startup-id firefox --new-window https://webmail.midco.com/
+#bindsym $mod+m workspace $ws10; exec --no-startup-id firefox --new-window https://
 bindsym $mod+z workspace $ws9; exec --no-startup-id vmware-view
