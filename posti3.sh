@@ -73,7 +73,7 @@ sudo -u $user_name aurman -S mpv --noedit --noconfirm --needed # Graphical
 # Themeing
 sudo -u $user_name aurman -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noedit --noconfirm --needed # Theme engines
 sudo -u $user_name aurman -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noedit --noconfirm --needed # Fonts
-sudo -u $user_name aurman -S materia-gtk-theme gnome-themes-extra arc-icon-theme paper-icon-theme-git papirus-icon-theme numix-circle-icon-theme-git --noedit --noconfirm --needed # Themes
+sudo -u $user_name aurman -S arc-gtk-theme gnome-themes-extra arc-icon-theme paper-icon-theme-git papirus-icon-theme numix-circle-icon-theme-git --noedit --noconfirm --needed # Themes
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Moka/Paper,Papirus-Dark,Numix-Circle,Moka/' /usr/share/icons/Arc/index.theme
