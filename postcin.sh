@@ -64,9 +64,9 @@ sudo -u $user_name yay -S downgrade ntfs-3g dosfstools exfat-utils unzip p7zip u
 sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
 
 # Cinnamon Core
-sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji gtkhash --noconfirm --noedit --needed
+sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --noedit --needed
 
-sudo -u $user_name yay -S cinnamon gtkhash-nemo nemo-fileroller lightdm-settings xorg-xrandr eog gnome-{calculator,disk-utility,font-viewer,keyring,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry system-config-printer --noconfirm --noedit --needed
+sudo -u $user_name yay -S cinnamon nemo-fileroller lightdm-settings xorg-xrandr eog gnome-{calculator,disk-utility,font-viewer,keyring,mpv,screenshot,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit blueberry mousetweaks orca system-config-printer --noconfirm --noedit --needed
 
 # System Programs
 sudo -u $user_name yay -S plank --noconfirm --noedit --needed
@@ -76,7 +76,7 @@ sudo -u $user_name yay -S arc-gtk-theme paper-icon-theme-git papirus-icon-theme-
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Adwaita/Papirus-Dark,Numix-Circle,Adwaita/' /usr/share/icons/Paper/index.theme
-sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=slick-greeter/' /etc/lightdm/lightdm.conf
+sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
 systemctl enable thermald.service
 systemctl enable lightdm.service
 
