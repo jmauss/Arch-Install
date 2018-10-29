@@ -58,7 +58,7 @@ cd
 sudo -u $user_name yay -Syu --noedit --noconfirm --needed
 
 # System Core
-sudo -u $user_name yay -S downgrade ntfs-3g dosfstools unzip p7zip thermald --noconfirm --noedit --needed
+sudo -u $user_name yay -S downgrade ntfs-3g dosfstools exfat-utils unzip p7zip thermald --noconfirm --noedit --needed
 
 # Audio Drivers
 sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
