@@ -94,12 +94,16 @@ bindsym $mod+a focus parent
 
 # workspace names
 set $ws10 ""
-set $ws9 ""
+set $ws9 ""
+set $ws8 ""
+set $ws7 ""
 
 # workspace location
 workspace $ws10 output eDP-1
 workspace 1 output DP-2-2
 workspace $ws9 output DP-2-1
+workspace $ws8 output DP-2-1
+workspace $ws7 output DP-2-1
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -108,8 +112,8 @@ bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
+bindsym $mod+7 workspace $ws7 
+bindsym $mod+8 workspace $ws8 
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
@@ -120,8 +124,8 @@ bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+7 move container to workspace $ws7 
+bindsym $mod+Shift+8 move container to workspace $ws8 
 bindsym $mod+Shift+9 move container to workspace $ws9 
 bindsym $mod+Shift+0 move container to workspace $ws10 
 
@@ -184,13 +188,13 @@ gaps inner 5
 gaps outer 6
 
 # Lock
-bindsym $mod+x exec --no-startup-id "i3lock-fancy -b=0x8 -n"
+bindsym $mod+z exec --no-startup-id "i3lock-fancy -b=0x8 -n"
 
 exec --no-startup-id xset dpms 900
 exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker "i3lock-fancy -b=0x8 -n"
 
 exec --no-startup-id compton -f --vsync opengl --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
-#exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/
+#exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/--.jpg
 
 # Personal Key Bindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%"
@@ -198,8 +202,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 false ;
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 #bindsym $mod+c exec --no-startup-id chromium
+#bindsym $mod+Shift+f exec --no-startup-id firefox
 
-#bindsym $mod+m workspace $ws10; exec --no-startup-id chromium --new-window https://
-#bindsym $mod+x workspace $ws9; exec --no-startup-id remmina -c ~/.config/remmina/1531497463098.remmina 
-#bindsym $mod+b workspace $ws8; exec --no-startup-id virt-manager
+#bindsym $mod+m workspace $ws10; exec --no-startup-id firefox --new-window https://
+#bindsym $mod+x workspace $ws9; exec --no-startup-id remmina -c ~/.local/share/remmina/--.remmina
+#bindsym $mod+b workspace $ws8; exec --no-startup-id VirtualBox #virt-manager
 #bindsym $mod+n workspace $ws7; exec --no-startup-id vmware-view
