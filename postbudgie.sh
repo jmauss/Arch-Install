@@ -55,24 +55,24 @@ cd yay/
 sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
-sudo -u $user_name yay -Syu --noedit --noconfirm --needed
+sudo -u $user_name yay -Syu --noconfirm --needed
 
 # System Core
-sudo -u $user_name yay -S downgrade ntfs-3g dosfstools exfat-utils unzip p7zip unrar thermald cups cups-pdf --noconfirm --noedit --needed
+sudo -u $user_name yay -S downgrade ntfs-3g dosfstools exfat-utils unzip p7zip unrar thermald cups cups-pdf --noconfirm --needed
 
 # Audio Drivers
-sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --noedit --needed
+sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --needed
 
 # Budgie Core
-sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --noedit --needed
+sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji --noconfirm --needed
 
-sudo -u $user_name yay -S budgie-desktop dconf-editor lightdm-settings alacarte eog file-roller network-manager-applet nautilus gnome-{calculator,calendar,disk-utility,font-viewer,keyring,mpv,screenshot,screensaver,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit system-config-printer --noconfirm --noedit --needed
+sudo -u $user_name yay -S budgie-desktop dconf-editor lightdm-settings alacarte eog file-roller network-manager-applet nautilus gnome-{calculator,calendar,disk-utility,font-viewer,keyring,mpv,screenshot,screensaver,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit system-config-printer --noconfirm --needed
 
 # System Programs
-sudo -u $user_name yay -S plank --noconfirm --noedit --needed
+sudo -u $user_name yay -S plank --noconfirm --needed
 
 # System Theming 
-sudo -u $user_name yay -S materia-gtk-theme papirus-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --noedit --needed
+sudo -u $user_name yay -S materia-gtk-theme papirus-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --needed
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
