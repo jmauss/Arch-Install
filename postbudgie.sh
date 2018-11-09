@@ -72,7 +72,7 @@ sudo -u $user_name yay -S budgie-desktop dconf-editor lightdm-settings alacarte 
 sudo -u $user_name yay -S plank --noconfirm --needed
 
 # System Theming 
-sudo -u $user_name yay -S materia-gtk-theme papirus-icon-theme-git lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --needed
+sudo -u $user_name yay -S materia-gtk-theme papirus-icon-theme lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --needed
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
