@@ -47,33 +47,33 @@ EOPF
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
 cd /tmp
-sudo -u $user_name git clone https://aur.archlinux.org/aurman.git
-cd aurman/
-sudo -u $user_name makepkg -sric --noconfirm --needed --skippgpcheck
+sudo -u $user_name git clone https://aur.archlinux.org/yay.git
+cd yay/
+sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
-sudo -u $user_name aurman -Syu --noedit --noconfirm --needed
+sudo -u $user_name yay -Syu --noedit --noconfirm --needed
 
 # System Core
-sudo -u $user_name aurman -S alsa-utils pulseaudio pulseaudio-alsa --noedit --noconfirm --needed # Audio
-sudo -u $user_name aurman -S ntfs-3g dosfstools exfat-utils unzip p7zip udevil --noedit --noconfirm --needed # Files/Filesystems
+sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --needed # Audio
+sudo -u $user_name yay -S ntfs-3g dosfstools exfat-utils unzip p7zip unrar udevil --noconfirm --needed # Files/Filesystems
 systemctl enable devmon@$user_name.service
-sudo -u $user_name aurman -S thermald acpi --noedit --noconfirm --needed # Hardware monitoring
+sudo -u $user_name yay -S thermald acpi --noconfirm --needed # Hardware monitoring
 systemctl enable thermald.service
 
 # i3 Core
-sudo -u $user_name aurman -S xorg-xinit xautolock xorg-apps --noedit --noconfirm --needed # Xorg utils
-sudo -u $user_name aurman -S i3-gaps i3blocks i3lock-fancy-multimonitor-git --noedit --noconfirm --needed # i3 specific
-sudo -u $user_name aurman -S feh compton termite rofi --noedit --noconfirm --needed # i3 utils
+sudo -u $user_name yay -S xorg-xinit xautolock xorg-apps --noconfirm --needed # Xorg utils
+sudo -u $user_name yay -S i3-gaps i3blocks i3lock-fancy-multimonitor-git --noconfirm --needed # i3 specific
+sudo -u $user_name yay -S feh compton termite rofi --noconfirm --needed # i3 utils
 
 # System Utilities
-sudo -u $user_name aurman -S downgrade htop screenfetch ranger --noedit --noconfirm --needed # Command line
-sudo -u $user_name aurman -S mpv --noedit --noconfirm --needed # Graphical
+sudo -u $user_name yay -S downgrade htop screenfetch ranger -noconfirm --needed # Command line
+sudo -u $user_name yay -S mpv youtube-dl --noconfirm --needed # Graphical
 
 # Themeing
-sudo -u $user_name aurman -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noedit --noconfirm --needed # Theme engines
-sudo -u $user_name aurman -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noedit --noconfirm --needed # Fonts
-sudo -u $user_name aurman -S arc-gtk-theme gnome-themes-extra arc-icon-theme paper-icon-theme-git papirus-icon-theme numix-circle-icon-theme-git --noedit --noconfirm --needed # Themes
+sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noconfirm --needed # Theme engines
+sudo -u $user_name yay -S ttf-roboto ttf-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noconfirm --needed # Fonts
+sudo -u $user_name yay -S arc-gtk-theme gnome-themes-extra arc-icon-theme paper-icon-theme-git papirus-icon-theme numix-circle-icon-theme-git -noconfirm --needed # Themes
 
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Moka/Paper,Papirus-Dark,Numix-Circle,Moka/' /usr/share/icons/Arc/index.theme
@@ -103,8 +103,8 @@ chown -R $user_name:wheel i3dark.crx .zshrc .xinitrc .zprofile .config Downloads
 chmod u+x Scripts/i3screens.sh
 cd
 
-sudo -u $user_name aurman -Rns $(sudo -u $user_name aurman -Qqdt) --noconfirm
-sudo -u $user_name aurman -Sc --noconfirm
+sudo -u $user_name yay -Yc --noconfirm
+sudo -u $user_name yay -Sc --noconfirm
 
 rm /home/$user_name/.bash*
 rm -r 
