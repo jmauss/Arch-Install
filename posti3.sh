@@ -75,6 +75,12 @@ sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noconfi
 sudo -u $user_name yay -S ttf-roboto nerd-fonts-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noconfirm --needed # Fonts
 sudo -u $user_name yay -S arc-gtk-theme gnome-themes-extra arc-icon-theme paper-icon-theme-git papirus-icon-theme numix-circle-icon-theme-git -noconfirm --needed # Themes
 
+cd /tmp
+sudo -u $user_name git clone https://github.com/alexanderjeurissen/ranger_devicons
+cd ranger_devicons/
+sudo -u $user_name make install
+cd
+
 sudo sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/Moka/Paper,Papirus-Dark,Numix-Circle,Moka/' /usr/share/icons/Arc/index.theme
 
