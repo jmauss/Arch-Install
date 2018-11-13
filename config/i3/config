@@ -166,21 +166,20 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
-	tray_output primary
-	position top
-	colors {
-		background #454749
+        tray_output primary
+        position top
+        colors {
+                background #383838
 #                        border  background text
       focused_workspace  #a7e22e #8fc029    #f1ebeb
-      active_workspace   #a7e22e #454749    #f1ebeb
-      inactive_workspace #a7e22e #454749    #f1ebeb
-      urgent_workspace   #a54242 #454749    #f1ebeb
+      active_workspace   #a7e22e #383838    #f1ebeb
+      inactive_workspace #a7e22e #383838    #f1ebeb
+      urgent_workspace   #a54242 #383838    #f1ebeb
 
-	}
+        }
 }
 
 # Gaps
-# for_window [class="Pavucontrol"] floating enable
 for_window [class="^.*"] border pixel 0
 for_window [window_role="Organizer"] floating enable
 
@@ -194,7 +193,7 @@ exec --no-startup-id xset dpms 900
 exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker "i3lock-fancy -b=0x8 -n"
 
 exec --no-startup-id compton -f --vsync opengl --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
-#exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/--.jpg
+#exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/.jpg
 
 # Personal Key Bindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5% && pkill -RTMIN+1 i3blocks"
@@ -205,6 +204,6 @@ bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle && pkil
 #bindsym $mod+Shift+f exec --no-startup-id firefox
 
 #bindsym $mod+m workspace $ws10; exec --no-startup-id firefox --new-window https://
-#bindsym $mod+x workspace $ws9; exec --no-startup-id remmina -c ~/.local/share/remmina/--.remmina
-#bindsym $mod+b workspace $ws8; exec --no-startup-id VirtualBox #virt-manager
+#bindsym $mod+x workspace $ws9; exec --no-startup-id remmina -c ~/.local/share/remmina/.remmina
+#bindsym $mod+b workspace $ws8; exec --no-startup-id VirtualBox
 #bindsym $mod+n workspace $ws7; exec --no-startup-id vmware-view
