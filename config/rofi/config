@@ -1,11 +1,11 @@
 rofi.modi:		run,ssh,window
-rofi.lines:		5
+rofi.lines:		4
 rofi.eh:		1
 rofi.line-margin:	10
-rofi.width:		50
+rofi.width:		25
 rofi.padding:		10
 rofi.bw:		0
-rofi.font:		'Roboto Regular' 18
+rofi.font:		'Roboto Regular' 16 
 rofi.terminal:		termite
 rofi.ssh-client:	ssh
 rofi.ssh-command:	{terminal} -e "{ssh-client} {host}"
