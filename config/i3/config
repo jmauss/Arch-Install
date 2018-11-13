@@ -176,7 +176,7 @@ bar {
       inactive_workspace #a7e22e #383838    #f1ebeb
       urgent_workspace   #a54242 #383838    #f1ebeb
 
-        }
+    }
 }
 
 # Gaps
