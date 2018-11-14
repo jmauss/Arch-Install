@@ -7,15 +7,15 @@ font = RobotoMono Nerd Font Regular 10
 foreground      = #f1ebeb
 foreground_bold = #f1ebeb
 cursor          = #f1ebeb
-background      = rgba(69, 71, 73, .85)
+background      = rgba(54, 54, 54, .85)
 
 # black
 color0  = #48483e
 color8  = #76715e
 
 # red
-color1  = #dc2566
-color9  = #fa2772
+color1  = #dc2525
+color9  = #fa2727
 
 # green
 color2  = #8fc029
