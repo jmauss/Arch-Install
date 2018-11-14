@@ -69,7 +69,7 @@ sudo -u $user_name yay -S feh compton termite rofi --noconfirm --needed # i3 uti
 
 # System Utilities
 sudo -u $user_name yay -S downgrade htop screenfetch ranger -noconfirm --needed # Command line
-sudo -u $user_name yay -S mpv youtube-dl --noconfirm --needed # Graphical
+sudo -u $user_name yay -S mpv --noconfirm --needed # Graphical
 
 # Themeing
 sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noconfirm --needed # Theme engines
