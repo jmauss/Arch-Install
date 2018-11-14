@@ -14,7 +14,7 @@ rofi.ssh-command:	{terminal} -e "{ssh-client} {host}"
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------
 rofi.color-enabled: true
-rofi.color-window: argb:d8383838, argb:00383838, argb:00383838
-rofi.color-normal: argb:00383838, #f1ebeb, argb:00383838, argb:00383838, #a7e22e
-rofi.color-active: argb:00383838, #f1ebeb, argb:00383838, argb:00383838, #a7e22e
-rofi.color-urgent: argb:00383838, #f1ebeb, argb:00383838, argb:00383838, #a7e22e
+rofi.color-window: argb:d8363636, argb:00363636, argb:00363636
+rofi.color-normal: argb:00363636, #f1ebeb, argb:00363636, argb:00363636, #a7e22e
+rofi.color-active: argb:00363636, #f1ebeb, argb:00363636, argb:00363636, #a7e22e
+rofi.color-urgent: argb:00363636, #f1ebeb, argb:00363636, argb:00363636, #a7e22e
