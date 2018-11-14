@@ -29,6 +29,8 @@ else
 fi
 SAVEHIST=1000
 
+export EDITOR=/usr/bin/vi
+
 alias ls='ls --color=auto'
 alias please='sudo $(fc -ln -1)'
 alias sudo='sudo '
