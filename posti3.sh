@@ -74,7 +74,7 @@ sudo -u $user_name yay -S mpv youtube-dl --noconfirm --needed # Graphical
 # Themeing
 sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noconfirm --needed # Theme engines
 sudo -u $user_name yay -S ttf-roboto nerd-fonts-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noconfirm --needed # Fonts
-sudo -u $user_name yay -S materia-gtk-theme papirus-icon-theme --noconfirm --needed # Themes
+sudo -u $user_name yay -S vimix-gtk-themes-git papirus-icon-theme --noconfirm --needed # Themes
 
 cd /tmp
 sudo -u $user_name git clone https://github.com/alexanderjeurissen/ranger_devicons
