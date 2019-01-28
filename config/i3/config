@@ -189,7 +189,7 @@ bindsym $mod+z exec --no-startup-id "i3lock-fancy -b=0x8 -n"
 exec --no-startup-id xset dpms 900
 exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker "i3lock-fancy -b=0x8 -n"
 
-exec --no-startup-id compton -f --vsync opengl --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
+exec --no-startup-id compton -f --vsync opengl-swc --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
 #exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/--.jpg
 
 # Personal Key Bindings
