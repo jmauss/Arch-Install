@@ -68,11 +68,8 @@ sudo -u $user_name yay -S otf-san-francisco otf-sfmono ttf-liberation noto-fonts
 
 sudo -u $user_name yay -S budgie-desktop dconf-editor lightdm-settings alacarte eog file-roller network-manager-applet nautilus gnome-{calculator,calendar,disk-utility,font-viewer,keyring,mpv,screenshot,screensaver,system-log,system-monitor,terminal} xdg-user-dirs-gtk gedit system-config-printer --noconfirm --needed
 
-# System Programs
-sudo -u $user_name yay -S plank --noconfirm --needed
-
 # System Theming 
-sudo -u $user_name yay -S sierra-gtk-theme-git papirus-icon-theme lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --needed
+sudo -u $user_name yay -S mojave-gtk-theme-git papirus-icon-theme lib32-fontconfig qt4 qt5-styleplugins qt5ct --noconfirm --needed
 
 sed -i "\$aQT_QPA_PLATFORMTHEME=qt5ct" /etc/environment
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
