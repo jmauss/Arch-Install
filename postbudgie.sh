@@ -78,7 +78,8 @@ systemctl enable lightdm.service
 systemctl enable org.cups.cupsd.service
 
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrc -o /home/$user_name/.zshrc
-chown $user_name:wheel /home/$user_name/.zshrc
+curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/termcolors.sh -o /home/$user_name/termcolors.sh
+chown $user_name:wheel /home/$user_name/.zshrc /home/$user_name/termcolors.sh
 
 sudo -u $user_name yay -Yc --noconfirm
 sudo -u $user_name yay -Sc --noconfirm
