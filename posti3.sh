@@ -73,7 +73,7 @@ sudo -u $user_name yay -S mpv --noconfirm --needed # Graphical
 # Themeing
 sudo -u $user_name yay -S qt4 qt5-styleplugins qt5ct lxappearance-gtk3 --noconfirm --needed # Theme engines
 sudo -u $user_name yay -S ttf-roboto nerd-fonts-roboto-mono ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome-4 --noconfirm --needed # Fonts
-sudo -u $user_name yay -S vimix-gtk-themes-git papirus-icon-theme --noconfirm --needed # Themes
+sudo -u $user_name yay -S papirus-icon-theme --noconfirm --needed # Themes
 
 cd /tmp
 sudo -u $user_name git clone https://github.com/alexanderjeurissen/ranger_devicons
@@ -93,7 +93,6 @@ mkdir -p /home/$user_name/.config/i3
 mkdir -p /home/$user_name/.config/gtk-3.0
 mkdir -p /home/$user_name/.config/rofi
 
-curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/Extra/Chrome/i3dark.crx -o /home/$user_name/i3dark.crx
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zshrci3 -o /home/$user_name/.zshrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.xinitrc -o /home/$user_name/.xinitrc
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/.zprofile -o /home/$user_name/.zprofile 
@@ -103,7 +102,7 @@ curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/gtk-3.0
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3blocks/i3blocks.conf -o /home/$user_name/.config/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/jmauss/Arch-Install/master/config/i3/config -o /home/$user_name/.config/i3/config
 cd /home/$user_name/
-chown -R $user_name:wheel i3dark.crx .zshrc .xinitrc .zprofile .config Downloads Images Scripts Files
+chown -R $user_name:wheel .zshrc .xinitrc .zprofile .config Downloads Images Scripts Files
 cd
 
 sudo -u $user_name yay -Yc --noconfirm
