@@ -189,7 +189,7 @@ bindsym $mod+z exec --no-startup-id "i3lock-fancy -b=0x8 -n"
 exec --no-startup-id xset dpms 900
 exec --no-startup-id xautolock -secure -time 15 -corners 00-- -locker "i3lock-fancy -b=0x8 -n"
 
-exec --no-startup-id compton -f --vsync opengl-swc --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
+exec --no-startup-id compton -f --vsync --unredir-if-possible --shadow-exclude "class_g = 'Firefox' && argb"
 #exec_always --no-startup-id feh --bg-scale ~/Images/Wallpapers/--.jpg
 
 # Personal Key Bindings
@@ -197,8 +197,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 false ;
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5% && pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle && pkill -RTMIN+1 i3blocks"
 
-#bindsym $mod+c exec --no-startup-id chromium
+#bindsym $mod+Shift+f exec --no-startup-id env GTK_THEME=Adwaita firefox
 
-#bindsym $mod+m workspace $ws10; exec --no-startup-id chromium --new-window https://
+#bindsym $mod+m workspace $ws10; exec --no-startup-id env GTK_THEME=Adwaita firefox --new-window https://
 #bindsym $mod+x workspace $ws9; exec --no-startup-id remmina -c ~/.local/share/remmina/--.remmina
 #bindsym $mod+n workspace $ws8; exec --no-startup-id VirtualBox
