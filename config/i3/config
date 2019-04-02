@@ -198,7 +198,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 false ;
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle && pkill -RTMIN+1 i3blocks"
 
 #bindsym $mod+x exec --no-startup-id env GTK_THEME=Adwaita firefox
-
 #bindsym $mod+m workspace $ws10; exec --no-startup-id env GTK_THEME=Adwaita firefox --new-window https://
 #bindsym $mod+c workspace $ws9; exec --no-startup-id remmina -c ~/.local/share/remmina/--.remmina
 #bindsym $mod+n workspace $ws8; exec --no-startup-id VirtualBox -style fusion
