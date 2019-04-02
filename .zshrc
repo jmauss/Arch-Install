@@ -11,7 +11,11 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 setopt HIST_IGNORE_DUPS
 
 autoload -Uz colors && colors
-PROMPT="[%{$fg_bold[green]%}%n%{$reset_color%}:%{$fg_no_bold[white]%}%~%{$reset_color%}]$ "
+
+#i3
+PROMPT="[%{$fg_bold[green]%}%n%{$reset_color%}:%~%{$reset_color%}]$ "
+#Non-i3
+#PROMPT="[%{$fg_bold[green]%}%n%{$reset_color%}:%{$fg_no_bold[white]%}%~%{$reset_color%}]$ " 
 
 autoload -U history-search-end
 
