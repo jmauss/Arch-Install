@@ -56,6 +56,7 @@ sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
 sudo -u $user_name yay -Syu --noconfirm --needed
+sudo -u $user_name yay --editmenu --nodiffmenu --combinedupgrade --nocleanmenu --save
 
 # System Core
 sudo -u $user_name yay -S downgrade ntfs-3g dosfstools exfat-utils unzip p7zip unrar thermald cups cups-pdf --noconfirm --needed
