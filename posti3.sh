@@ -53,7 +53,7 @@ sudo -u $user_name makepkg -sric --noconfirm --needed
 cd
 
 sudo -u $user_name yay -Syu --noedit --noconfirm --needed
-sudo -u $user_name yay --editmenu --nodiffmenu --combinedupgrade --save
+sudo -u $user_name yay --editmenu --nodiffmenu --combinedupgrade --nocleanmenu --save
 
 # System Core
 sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --needed # Audio
