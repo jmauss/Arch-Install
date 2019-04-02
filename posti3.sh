@@ -58,8 +58,7 @@ sudo -u $user_name yay --editmenu --nodiffmenu --combinedupgrade --save
 # System Core
 sudo -u $user_name yay -S alsa-utils pulseaudio pulseaudio-alsa --noconfirm --needed # Audio
 sudo -u $user_name yay -S ntfs-3g dosfstools exfat-utils unzip p7zip unrar --noconfirm --needed # Files/Filesystems
-sudo -u $user_name yay -S thermald acpi --noconfirm --needed # Hardware monitoring
-systemctl enable thermald.service
+sudo -u $user_name yay -S acpi --noconfirm --needed # Hardware monitoring
 
 # i3 Core
 sudo -u $user_name yay -S xorg-xinit xautolock xorg-apps --noconfirm --needed # Xorg utils
