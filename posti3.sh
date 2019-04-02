@@ -66,7 +66,7 @@ sudo -u $user_name yay -S i3-gaps i3blocks i3lock-fancy-multimonitor-git --nocon
 sudo -u $user_name yay -S feh compton termite rofi --noconfirm --needed # i3 utils
 
 # System Utilities
-sudo -u $user_name yay -S downgrade htop screenfetch ranger -noconfirm --needed # Command line
+sudo -u $user_name yay -S downgrade htop screenfetch ranger --noconfirm --needed # Command line
 sudo -u $user_name yay -S mpv --noconfirm --needed # Graphical
 
 # Themeing
