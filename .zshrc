@@ -34,5 +34,5 @@ export EDITOR=/usr/bin/vi
 alias ls='ls --color=auto'
 alias please='sudo $(fc -ln -1)'
 alias sudo='sudo '
-# alias msfconsole="msfconsole -x \"db_connect ${USER}@msf\""
-# alias mirror-update="sudo reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c \"United States\" -f 5 -l 5"
+#alias msfconsole="msfconsole -x \"db_connect ${USER}@msf\""
+#alias mirror-update="sudo reflector --sort rate -p https --save /etc/pacman.d/mirrorlist -c \"United States\" -f 5 -l 5"
