@@ -63,10 +63,11 @@ system_setup()
 
 system_install()
 {
-    pacstrap /mnt base linux linux-firmware lvm2 man-db man-pages texinfo vi reflector iw wpa_supplicant dialog tlp intel-ucode
+    pacstrap /mnt base linux linux-firmware lvm2 man-db man-pages texinfo vi reflector dhcpcd iw wpa_supplicant dialog tlp intel-ucode
 
-    genfstab -U /mnt >> /mnt/etc/fstab
-
+    genfstab -U /mnt >> /mnt/etc/
+    
+    arch-chroot /mnt systemctl enable dhcpcd.service
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl mask systemd-rfkill.service
