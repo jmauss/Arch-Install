@@ -63,7 +63,7 @@ system_setup()
 
 system_install()
 {
-    pacstrap /mnt base linux linux-firmware lvm2 man-db man-pages texinfo vi reflector dhcpcd iw wpa_supplicant dialog tlp intel-ucode
+    pacstrap /mnt base base-devel linux linux-firmware lvm2 man-db man-pages texinfo vi reflector dhcpcd iw wpa_supplicant dialog tlp intel-ucode
 
     genfstab -U /mnt >> /mnt/etc/
     
