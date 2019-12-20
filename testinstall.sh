@@ -65,7 +65,7 @@ system_install()
 {
     pacstrap /mnt base base-devel linux linux-firmware lvm2 man-db man-pages vi reflector dhcpcd iw wpa_supplicant dialog tlp intel-ucode
 
-    genfstab -U /mnt >> /mnt/etc/
+    genfstab -U /mnt >> /mnt/etc/fstab
     
     arch-chroot /mnt systemctl enable dhcpcd.service
     arch-chroot /mnt systemctl enable tlp.service
