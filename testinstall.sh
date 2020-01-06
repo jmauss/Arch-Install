@@ -67,7 +67,6 @@ system_install()
 
     genfstab -U /mnt >> /mnt/etc/fstab
     
-    arch-chroot /mnt systemctl enable dhcpcd.service
     arch-chroot /mnt systemctl enable tlp.service
     arch-chroot /mnt systemctl enable tlp-sleep.service
     arch-chroot /mnt systemctl mask systemd-rfkill.service
