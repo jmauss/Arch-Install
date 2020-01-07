@@ -42,7 +42,7 @@ sudo -u $user_name yay -S papirus-icon-theme --noconfirm --needed # Theming
 
 # Utils
 sudo -u $user_name yay -S baobab dconf-editor eog gedit gnome-{calculator,calendar,disk-utility,font-viewer,logs,maps,screenshot,system-monitor,terminal,tweaks} totem --noconfirm --needed # Gnome
-sudo -u $user_name yay -S virtualbox-host-modules-arch virtualbox virtualbox-ext-oracle papirus-icon-theme --noconfirm --needed # Virtualization
+sudo -u $user_name yay -S virtualbox-host-modules-arch virtualbox virtualbox-ext-oracle --noconfirm --needed # Virtualization
 sudo -u $user_name yay -S ntfs-3g exfat-utils p7zip unrar --noconfirm --needed # Files/Filesystems
 sudo -u $user_name yay -S downgrade neofetch --noconfirm --needed # Command Line
 
